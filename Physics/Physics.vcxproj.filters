@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="SPHParticle.h" />
+    <ClInclude Include="SPHConstant.h" />
+    <ClInclude Include="SPHKernel.h" />
+    <ClInclude Include="PhysicsObject.h" />
+    <ClInclude Include="PhysicsWorld.h" />
+    <ClInclude Include="BoundarySolver.h" />
+    <ClInclude Include="IndexedFinder.h" />
+    <ClInclude Include="ParticlePair.h" />
+    <ClInclude Include="IndexedParticle.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SPHParticle.cpp" />
+    <ClCompile Include="SPHKernel.cpp" />
+    <ClCompile Include="PhysicsObject.cpp" />
+    <ClCompile Include="PhysicsWorld.cpp" />
+    <ClCompile Include="BoundarySolver.cpp" />
+    <ClCompile Include="ParticlePair.cpp" />
+    <ClCompile Include="IndexedFinder.cpp" />
+    <ClCompile Include="IndexedParticle.cpp" />
+  </ItemGroup>
+</Project>
