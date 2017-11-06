@@ -10,7 +10,9 @@ PhysicsObject::PhysicsObject(const std::vector<SPHParticle*>& particles) :
 {
 }
 
-PhysicsObject::PhysicsObject(const Box3d<float>& box, const float divideLength, const SPHConstant& constant) :
+/*
+
+PhysicsObject::PhysicsObject(const Box3d& box, const float divideLength, const SPHConstant& constant) :
 	constant(constant),
 	nextId(0)
 {
@@ -20,6 +22,8 @@ PhysicsObject::PhysicsObject(const Box3d<float>& box, const float divideLength, 
 		particles.push_back(p);
 	}
 }
+*/
+
 
 /*
 PhysicsObject::PhysicsObject(const Sphere<float>& sphere, const float divideLength, const SPHConstant& constant) :
@@ -38,7 +42,7 @@ PhysicsObject::~PhysicsObject()
 	clear();
 }
 
-SPHParticle* PhysicsObject::createParticle(const Vector3d<float>& position, const Vector3d<float>& velocity)
+SPHParticle* PhysicsObject::createParticle(const Vector3df& position, const Vector3df& velocity)
 {
 	auto p = new SPHParticle(position, constant.getEffectLength() / 1.25f / 2.0f, &constant);
 	p->setVelocity(velocity);
@@ -47,7 +51,8 @@ SPHParticle* PhysicsObject::createParticle(const Vector3d<float>& position, cons
 }
 
 
-std::vector<SPHParticle*> PhysicsObject::createParticles(const Box3d<float>& box, const float divideLength)
+/*
+std::vector<SPHParticle*> PhysicsObject::createParticles(const Box3d& box, const float divideLength)
 {
 	std::vector<SPHParticle*> newParticles;
 	const auto points = box.toPoints(divideLength);
@@ -58,7 +63,7 @@ std::vector<SPHParticle*> PhysicsObject::createParticles(const Box3d<float>& box
 	}
 	return newParticles;
 }
-
+*/
 /*
 std::vector<SPHParticle*> PhysicsObject::createParticles(const Sphere<float>& sphere, const float divideLength)
 {
@@ -99,28 +104,28 @@ void PhysicsObject::forwardTime(const float timeStep)
 	}
 }
 
-void PhysicsObject::addExternalForce(const Vector3d<float>& externalForce)
+void PhysicsObject::addExternalForce(const Vector3df& externalForce)
 {
 	for (const auto& p : particles) {
 		p->addExternalForce(externalForce);
 	}
 }
 
-Vector3d<float> PhysicsObject::getCenter() const
+Vector3df PhysicsObject::getCenter() const
 {
 	if (particles.empty()) {
-		return Math::Vector3d<float>(0.0, 0.0, 0.0);
+		return Math::Vector3df(0.0, 0.0, 0.0);
 	}
-	Math::Vector3d<float> center(0.0, 0.0, 0.0);
+	Math::Vector3df center(0.0, 0.0, 0.0);
 	for (const auto& p : particles) {
 		center += p->getPosition();
 	}
 	return center /= static_cast<float>(particles.size());
 }
 
-Vector3d<float> PhysicsObject::getAverageVelosity() const
+Vector3df PhysicsObject::getAverageVelosity() const
 {
-	Math::Vector3d<float> averageVelosity(0.0, 0.0, 0.0);
+	Math::Vector3df averageVelosity(0.0, 0.0, 0.0);
 	for (const auto& p : particles) {
 		averageVelosity += p->getVelocity();// variable.velocity;
 	}
@@ -138,7 +143,7 @@ float PhysicsObject::getWeight() const
 
 void PhysicsObject::convertToFluidForce()
 {
-	Math::Vector3d<float> totalForce(0.0, 0.0, 0.0);
+	Math::Vector3df totalForce(0.0, 0.0, 0.0);
 	for (const auto& p : particles) {
 		totalForce += p->getForce() * p->getVolume();
 	}
@@ -149,14 +154,14 @@ void PhysicsObject::convertToFluidForce()
 	}
 }
 
-void PhysicsObject::move(const Vector3d<float>& v)
+void PhysicsObject::move(const Vector3df& v)
 {
 	for (const auto& p : particles) {
 		p->move(v);
 	}
 }
 
-void PhysicsObject::setVelocity(const Vector3d<float>& velocity)
+void PhysicsObject::setVelocity(const Vector3df& velocity)
 {
 	for (const auto& p : particles) {
 		p->setVelocity(velocity);

@@ -13,7 +13,7 @@ public:
 
 	ParticlePair(SPHParticle* particle1, SPHParticle* particle2);
 
-	Math::Vector3d<float> getDistanceVector() const;
+	Math::Vector3df getDistanceVector() const;
 
 	float getDistance() const;
 
@@ -29,7 +29,7 @@ public:
 
 	void solveSurfaceTension();
 
-	Math::Vector3d<float> getVelocityDiff() const;
+	Math::Vector3df getVelocityDiff() const;
 
 	bool isValid() const;
 

@@ -4,7 +4,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-SPHParticle::SPHParticle(const Vector3d<float>& position, const float radius, SPHConstant* constant) :
+SPHParticle::SPHParticle(const Vector3df& position, const float radius, SPHConstant* constant) :
 	position(position),
 	radius(radius),
 	constant(constant),
@@ -14,8 +14,8 @@ SPHParticle::SPHParticle(const Vector3d<float>& position, const float radius, SP
 void SPHParticle::init()
 {
 	density = 0.0;
-	normal = Math::Vector3d<float>(0.0f, 0.0f, 0.0f);
-	force = Math::Vector3d<float>(0.0f, 0.0f, 0.0f);
+	normal = Math::Vector3df(0.0f, 0.0f, 0.0f);
+	force = Math::Vector3df(0.0f, 0.0f, 0.0f);
 }
 
 float SPHParticle::getDensityRatio() const
@@ -50,13 +50,13 @@ void SPHParticle::forwardTime(const float timeStep)
 	this->position += (velocity * timeStep);
 }
 
-void SPHParticle::addExternalForce(const Vector3d<float>& externalForce)
+void SPHParticle::addExternalForce(const Vector3df& externalForce)
 {
 	this->force += externalForce * getDensity();
 }
 
 namespace {
-	SPHKernel<float> kernel;
+	SPHKernel kernel;
 }
 
 
@@ -69,11 +69,11 @@ void SPHParticle::solveNormal(const SPHParticle& rhs)
 
 void SPHParticle::solveSurfaceTension(const SPHParticle& rhs)
 {
-	if (this->normal.getLengthSquared() < 0.1f) {
+	if (getLengthSquared( this->normal ) < 0.1f) {
 		return;
 	}
-	const auto distance = this->getPosition().getDistance(rhs.getPosition());
-	const auto n = this->normal.getNormalized();
+	const auto distance = glm::distance( this->getPosition(), rhs.getPosition());
+	const auto n = glm::normalize( this->normal );
 	const float tensionCoe = (this->constant->getTensionCoe() + rhs.constant->getTensionCoe()) * 0.5f;;
 	this->force -= tensionCoe * kernel.getPoly6KernelLaplacian(distance, constant->getEffectLength()) * n;
 }
@@ -91,7 +91,7 @@ void SPHParticle::solveViscosityForce(const SPHParticle& rhs)
 {
 	const auto viscosityCoe = (this->constant->getViscosityCoe() + rhs.constant->getViscosityCoe()) * 0.5f;
 	const auto& velocityDiff = (rhs.velocity - this->velocity);
-	const auto distance = getPosition().getDistance(rhs.getPosition());
+	const auto distance = glm::distance( getPosition(), rhs.getPosition());
 	this->addForce(viscosityCoe * velocityDiff * kernel.getViscosityKernelLaplacian(distance, constant->getEffectLength()) * rhs.getVolume());
 }
 
@@ -102,11 +102,11 @@ void SPHParticle::addSelfDensity()
 
 void SPHParticle::addDensity(const SPHParticle& rhs)
 {
-	const float distance = this->getPosition().getDistance(rhs.getPosition());
+	const float distance = glm::distance( this->getPosition(), rhs.getPosition());
 	this->addDensity(kernel.getPoly6Kernel(distance, constant->getEffectLength()) * rhs.getMass());
 }
 
-void SPHParticle::move(const Vector3d<float>& v)
+void SPHParticle::move(const Vector3df& v)
 {
 	this->position += v;
 }

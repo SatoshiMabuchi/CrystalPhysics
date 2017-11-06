@@ -5,7 +5,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-BoundarySolver::BoundarySolver(const float timeStep, const Box3d<float>& boundary) :
+BoundarySolver::BoundarySolver(const float timeStep, const Box3d& boundary) :
 	timeStep(timeStep),
 	boundary(boundary)
 {
@@ -20,18 +20,18 @@ void BoundarySolver::solve(const std::vector<SPHParticle*>& particles) {
 	}
 }
 
-Vector3d<float> BoundarySolver::getBoundaryForce(const Vector3d<float>& center)
+Vector3df BoundarySolver::getBoundaryForce(const Vector3df& center)
 {
-	Math::Vector3d<float> force(0,0,0);
+	Math::Vector3df force(0,0,0);
 
-	force += getForceX(center.getX());
-	force += getForceY(center.getY());
-	force += getForceZ(center.getZ());
+	force += getForceX(center.x);
+	force += getForceY(center.y);
+	force += getForceZ(center.z);
 
 	return force;
 }
 
-Vector3d<float> BoundarySolver::getForceX(const float x)
+Vector3df BoundarySolver::getForceX(const float x)
 {
 	float over = 0;
 	if (x > boundary.getMaxX()) {
@@ -42,10 +42,10 @@ Vector3d<float> BoundarySolver::getForceX(const float x)
 	}
 
 	const float force = getForce(over);
-	return Vector3d<float>(1,0,0) * force;
+	return Vector3df(1,0,0) * force;
 }
 
-Vector3d<float> BoundarySolver::getForceY(const float y)
+Vector3df BoundarySolver::getForceY(const float y)
 {
 	float over = 0;
 	if (y > boundary.getMaxY()) {
@@ -55,10 +55,10 @@ Vector3d<float> BoundarySolver::getForceY(const float y)
 		over = y - boundary.getMinY();
 	}
 	const float force = getForce(over);
-	return Vector3d<float>(0,1,0) * force;
+	return Vector3df(0,1,0) * force;
 }
 
-Vector3d<float> BoundarySolver::getForceZ(const float z)
+Vector3df BoundarySolver::getForceZ(const float z)
 {
 	float over = 0;
 	if (z > boundary.getMaxZ()) {
@@ -68,9 +68,10 @@ Vector3d<float> BoundarySolver::getForceZ(const float z)
 		over = z - boundary.getMinZ();
 	}
 	const float force = getForce(over);
-	return Vector3d<float>(0,0,1) * force;
+	return Vector3df(0,0,1) * force;
 }
 
-float BoundarySolver::getForce(const float over) {
+float BoundarySolver::getForce(const float over)
+{
 	return -over / timeStep / timeStep;
 }

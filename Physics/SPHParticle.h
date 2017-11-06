@@ -15,7 +15,7 @@ namespace Crystal {
 class SPHParticle : private UnCopyable
 {
 public:
-	SPHParticle(const Math::Vector3d<float>& center, const float radius, SPHConstant* constant);
+	SPHParticle(const Math::Vector3df& center, const float radius, SPHConstant* constant);
 
 	virtual ~SPHParticle() {};
 
@@ -29,11 +29,11 @@ public:
 
 	float getRestVolume() const;
 
-	void addForce(const Math::Vector3d<float>& force) { this->force += force; }
+	void addForce(const Math::Vector3df& force) { this->force += force; }
 
-	void setForce(const Math::Vector3d<float>& force) { this->force = force; }
+	void setForce(const Math::Vector3df& force) { this->force = force; }
 
-	Math::Vector3d<float> getForce() const { return force; }
+	Math::Vector3df getForce() const { return force; }
 
 	void setDefaultDensity() { this->density = constant->getDensity(); }
 
@@ -43,17 +43,17 @@ public:
 
 	void init();
 
-	Math::Vector3d<float> getAccelaration() { return force / density; }
+	Math::Vector3df getAccelaration() { return force / density; }
 
-	Math::Vector3d<float> getVelocity() const { return velocity; }
+	Math::Vector3df getVelocity() const { return velocity; }
 
-	void setVelocity(const Math::Vector3d<float>& velocity) { this->velocity = velocity; }
+	void setVelocity(const Math::Vector3df& velocity) { this->velocity = velocity; }
 
-	void addVelocity(const Math::Vector3d<float>& velocity) { this->velocity += velocity; }
+	void addVelocity(const Math::Vector3df& velocity) { this->velocity += velocity; }
 
 	void forwardTime(const float timeStep);
 
-	void addExternalForce(const Math::Vector3d<float>& force);
+	void addExternalForce(const Math::Vector3df& force);
 
 	void solveNormal(const SPHParticle& rhs);
 
@@ -67,21 +67,21 @@ public:
 
 	void addDensity(const SPHParticle& rhs);
 
-	Math::Vector3d<float> getNormal() const { return normal; }
+	Math::Vector3df getNormal() const { return normal; }
 
 	bool isBoundary() const { return constant->isBoundary; }
 
-	Math::Vector3d<float> getPosition() const { return position; }
+	Math::Vector3df getPosition() const { return position; }
 
 	float getDiameter() const { return radius * 2.0f; }
 
-	void move(const Math::Vector3d<float>& v);
+	void move(const Math::Vector3df& v);
 
 private:
-	Math::Vector3d<float> position;
-	Math::Vector3d<float> force;
-	Math::Vector3d<float> velocity;
-	Math::Vector3d<float> normal;
+	Math::Vector3df position;
+	Math::Vector3df force;
+	Math::Vector3df velocity;
+	Math::Vector3df normal;
 	float density;
 	float radius;
 	SPHConstant* constant;

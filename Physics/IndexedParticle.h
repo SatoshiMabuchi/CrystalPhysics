@@ -22,11 +22,11 @@ public:
 public:
 	void setGridID(const float effectLength);
 
-	Math::Vector3d<float> getPosition() const { return particle->getPosition(); }
+	Math::Vector3df getPosition() const { return particle->getPosition(); }
 
-	static int toGridId(const Math::Vector3d<float> pos, const float effectLength);
+	static int toGridId(const Math::Vector3df pos, const float effectLength);
 
-	static std::array<int,3> toIndex(const Math::Vector3d<float> pos, const float effectLength);
+	static std::array<int,3> toIndex(const Math::Vector3df pos, const float effectLength);
 
 	int getGridID() const { return gridID; }
 

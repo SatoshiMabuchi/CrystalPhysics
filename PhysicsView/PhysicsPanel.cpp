@@ -35,16 +35,16 @@ void PhysicsPanel::show()
 		ImGui::InputFloat("ViscosityCoe", &viscosityCoe);
 		SPHConstant constant(density, pressureCoe, viscosityCoe, 0.0f, divideLength * 1.25);
 		if (ImGui::Button("OK")) {
-			Box3d<float> box(Vector3d<float>(0.0, 0.0, 0.0), Vector3d<float>(1.0, 1.0, 1.0));
-			PhysicsObject* object = new PhysicsObject(box, divideLength, constant);
-			world.add(object);
+			Box3d box(Vector3df(0.0, 0.0, 0.0), Vector3df(1.0, 1.0, 1.0));
+			//PhysicsObject* object = new PhysicsObject(box, divideLength, constant);
+			//world.add(object);
 			ImGui::CloseCurrentPopup();
 		}
 		ImGui::EndPopup();
 	}
 	if (ImGui::Button("Start")) {
-		world.setExternalForce(Vector3d<float>(0.0, -9.8, 0.0));
-		world.setBoundary(Box3d<float>(Vector3d<float>(-100.0, 0.0, 0.0), Vector3d<float>(100, 1.0, 1.0)));
+		world.setExternalForce(Vector3df(0.0, -9.8, 0.0));
+		world.setBoundary(Box3d(Vector3df(-100.0, 0.0, 0.0), Vector3df(100, 1.0, 1.0)));
 		isUnderSimulation = !isUnderSimulation;
 	}
 	if (isUnderSimulation) {

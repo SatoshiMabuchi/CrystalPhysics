@@ -7,45 +7,44 @@
 namespace Crystal {
 	namespace Physics {
 
-template<typename T, typename int DIM = 3>
 class SPHKernel
 {
 public:
 	SPHKernel() = default;
 
-	SPHKernel(const T effectLength);
+	SPHKernel(const float effectLength);
 
-	T getPoly6Kernel(const T distance);
+	float getPoly6Kernel(const float distance);
 
-	T getPoly6Kernel2(const T distanceSquared);
+	float getPoly6Kernel2(const float distanceSquared);
 
-	T getPoly6Kernel(const T distance, const T effectLength);
+	float getPoly6Kernel(const float distance, const float effectLength);
 
-	Math::Vector3d<T> getPoly6KernelGradient(const Math::Vector3d<T>& distanceVector, const T effectLength);
+	Math::Vector3df getPoly6KernelGradient(const Math::Vector3df& distanceVector, const float effectLength);
 
-	T getPoly6KernelLaplacian(const T distance, const T effectLength);
+	float getPoly6KernelLaplacian(const float distance, const float effectLength);
 
-	Math::Vector3d<T> getSpikyKernelGradient(const Math::Vector3d<T> &distanceVector);
+	Math::Vector3df getSpikyKernelGradient(const Math::Vector3df& distanceVector);
 
-	Math::Vector3d<T> getSpikyKernelGradient(const Math::Vector3d<T> &distanceVector, const T effectLength);
+	Math::Vector3df getSpikyKernelGradient(const Math::Vector3df& distanceVector, const float effectLength);
 
-	T getViscosityKernelLaplacian(const T distance, const T effectLength);
+	float getViscosityKernelLaplacian(const float distance, const float effectLength);
 
-	T getCubicSpline(const T q);
+	float getCubicSpline(const float q);
 
-	T getCubicSpline(const T distance, const T effectRadius);
+	float getCubicSpline(const float distance, const float effectRadius);
 
-	Math::Vector3d<T> getCubicSplineGradient(const Math::Vector3d<T>& distanceVector);
+	Math::Vector3df getCubicSplineGradient(const Math::Vector3df& distanceVector);
 
-	Math::Vector3d<T> getCubicSplineGradient(const Math::Vector3d<T>& distanceVector, const T effectRadius);
+	Math::Vector3df getCubicSplineGradient(const Math::Vector3df& distanceVector, const float effectRadius);
 
-	T getCubicSpline(const Math::Vector3d<T>& v, const T effectLength);
+	float getCubicSpline(const Math::Vector3df& v, const float effectLength);
 
 private:
-	T effectLength;
-	T poly6KernelConstant;
-	T spikyKernelGradConstant;
-	T effectLengthSquared;
+	float effectLength;
+	float poly6KernelConstant;
+	float spikyKernelGradConstant;
+	float effectLengthSquared;
 };
 	}
 }

@@ -22,9 +22,9 @@ namespace Crystal {
 
 			void simulate(const float effectLength, const float timeStep);
 
-			void setBoundary(const Math::Box3d<float>& boundary) { this->boundary = boundary; }
+			void setBoundary(const Math::Box3d& boundary) { this->boundary = boundary; }
 
-			void setExternalForce(const Math::Vector3d<float>& force) { this->externalForce = force; }
+			void setExternalForce(const Math::Vector3df& force) { this->externalForce = force; }
 
 			std::vector< SPHParticle*> getParticles() const;
 
@@ -33,9 +33,9 @@ namespace Crystal {
 		private:
 			int timeStep;
 			std::vector< PhysicsObject* > objects;
-			Math::Vector3d<float> externalForce;
-			SPHKernel<float> kernel;
-			Math::Box3d<float> boundary;
+			Math::Vector3df externalForce;
+			SPHKernel kernel;
+			Math::Box3d boundary;
 		};
 
 	}

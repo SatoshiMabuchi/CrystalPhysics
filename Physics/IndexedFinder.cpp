@@ -74,7 +74,7 @@ std::vector<ParticlePair> IndexedFinder::search1(const std::vector<IndexedPartic
 		++yIter;// ignore itself.
 		while (yIter != particles.end() && (yIter->getGridID() <= gridID + 1)) {
 			const auto& centerY = yIter->getPosition();
-			if (centerX.getDistanceSquared(centerY) < effectLengthSquared) {
+			if (getDistanceSquared( centerX, centerY) < effectLengthSquared) {
 				/*
 				if (xIter->getParticle()->isBoundary() && yIter->getParticle()->isBoundary()) {
 				++yIter;
@@ -112,7 +112,7 @@ std::vector<ParticlePair> IndexedFinder::search2(const std::vector<IndexedPartic
 			auto zIter = yIter[i];
 			while (zIter != particles.end() && zIter->getGridID() <= baseID + 2) {
 				const auto& centerZ = zIter->getPosition();
-				if (centerX.getDistanceSquared(centerZ) < effectLengthSquared) {
+				if (getDistanceSquared( centerX, centerZ) < effectLengthSquared) {
 					/*
 					if (xIter->getParticle()->isBoundary() && zIter->getParticle()->isBoundary()) {
 					++zIter;

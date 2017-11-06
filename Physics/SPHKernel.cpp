@@ -3,157 +3,140 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-template<typename T, typename int DIM>
-SPHKernel<T, DIM>::SPHKernel(const T effectLength) :
+SPHKernel::SPHKernel(const float effectLength) :
 	effectLength(effectLength)
 {
-	this->poly6KernelConstant = 315.0f / (64.0f * Math::Tolerance<T>::getPI() * pow(effectLength, 9));
-	this->spikyKernelGradConstant = 45.0f / (Math::Tolerance<T>::getPI() * pow(effectLength, 6));
+	this->poly6KernelConstant = 315.0f / (64.0f * Math::Tolerance<float>::getPI() * pow(effectLength, 9));
+	this->spikyKernelGradConstant = 45.0f / (Math::Tolerance<float>::getPI() * pow(effectLength, 6));
 	this->effectLengthSquared = effectLength * effectLength;
 }
 
-template<typename T, typename int DIM>
-T SPHKernel<T, DIM>::getPoly6Kernel(const T distance)
+float SPHKernel::getPoly6Kernel(const float distance)
 {
 	if (distance > effectLength) {
-		return T{ 0 };
+		return 0.0f;
 	}
 	return this->poly6KernelConstant * pow(effectLength * effectLength - distance * distance, 3);
 }
 
-template<typename T, typename int DIM>
-T SPHKernel<T, DIM>::getPoly6Kernel2(const T distanceSquared)
+float SPHKernel::getPoly6Kernel2(const float distanceSquared)
 {
 	if (distanceSquared > effectLengthSquared) {
-		return T{ 0 };
+		return 0.0f;
 	}
 	const auto a = effectLengthSquared - distanceSquared;
 	return this->poly6KernelConstant * a * a * a;
 }
 
-template<typename T, typename int DIM>
-T SPHKernel<T, DIM>::getPoly6Kernel(const T distance, const T effectLength)
+float SPHKernel::getPoly6Kernel(const float distance, const float effectLength)
 {
 	if (distance > effectLength) {
-		return T{ 0 };
+		return 0.0f;
 	}
-	const auto poly6Constant = 315.0f / (64.0f * Math::Tolerance<T>::getPI() * pow(effectLength, 9));
+	const auto poly6Constant = 315.0f / (64.0f * Math::Tolerance<float>::getPI() * pow(effectLength, 9));
 	return poly6Constant * pow(effectLength * effectLength - distance * distance, 3);
 }
 
-template<typename T, typename int DIM>
-Vector3d<T> SPHKernel<T, DIM>::getPoly6KernelGradient(const Vector3d<T>& distanceVector, const T effectLength)
+Vector3df SPHKernel::getPoly6KernelGradient(const Vector3df& distanceVector, const float effectLength)
 {
-	const auto distance = distanceVector.getLength();
+	const auto distance = distanceVector.length();
 	if (distance > effectLength) {
-		return Vector3d<T>(0, 0, 0);
+		return Vector3df(0, 0, 0);
 	}
-	const auto poly6ConstantGradient = 945.0f / (32.0f * Tolerance<T>::getPI() * pow(effectLength, 9));
+	const auto poly6ConstantGradient = 945.0f / (32.0f * Tolerance<float>::getPI() * pow(effectLength, 9));
 	const auto factor = poly6ConstantGradient * pow(effectLength * effectLength - distance * distance, 2);
 	return distanceVector * factor;
 }
 
-template<typename T, typename int DIM>
-T SPHKernel<T, DIM>::getPoly6KernelLaplacian(const T distance, const T effectLength)
+float SPHKernel::getPoly6KernelLaplacian(const float distance, const float effectLength)
 {
 	if (distance > effectLength) {
-		return T{ 0 };
+		return 0.0f;
 	}
-	const auto poly6ConstantLaplacian = 945.0f / (32.0f * Tolerance<T>::getPI() * pow(effectLength, 9));
+	const auto poly6ConstantLaplacian = 945.0f / (32.0f * Tolerance<float>::getPI() * pow(effectLength, 9));
 	return poly6ConstantLaplacian * (effectLength * effectLength - distance * distance)
 		* (42.0f * distance * distance - 18.0f * effectLength * effectLength);
 }
 
-template<typename T, typename int DIM>
-Vector3d<T> SPHKernel<T, DIM>::getSpikyKernelGradient(const Vector3d<T> &distanceVector)
+Vector3df SPHKernel::getSpikyKernelGradient(const Vector3df& distanceVector)
 {
-	const auto distance = distanceVector.getLength();
+	const auto distance = glm::length( distanceVector );
 	if (distance > effectLength) {
-		return Vector3d<T>(0, 0, 0);
+		return Vector3df(0, 0, 0);
 	}
 	return distanceVector * this->spikyKernelGradConstant * pow(effectLength - distance, 2) / distance;
 }
 
-
-template<typename T, typename int DIM>
-Vector3d<T> SPHKernel<T, DIM>::getSpikyKernelGradient(const Vector3d<T> &distanceVector, const T effectLength)
+Vector3df SPHKernel::getSpikyKernelGradient(const Vector3df& distanceVector, const float effectLength)
 {
-	const auto distance = distanceVector.getLength();
+	const auto distance = glm::length( distanceVector );
 	if (distance > effectLength) {
-		return Vector3d<T>(0, 0, 0);
+		return Vector3df(0, 0, 0);
 	}
-	const auto constant = 45.0f / (Math::Tolerance<T>::getPI() * pow(effectLength, 6));
+	const auto constant = 45.0f / (Math::Tolerance<float>::getPI() * pow(effectLength, 6));
 	return distanceVector * constant * pow(effectLength - distance, 2) / distance;
 }
 
-template<typename T, typename int DIM>
-T SPHKernel<T, DIM>::getViscosityKernelLaplacian(const T distance, const T effectLength)
+float SPHKernel::getViscosityKernelLaplacian(const float distance, const float effectLength)
 {
 	if (distance > effectLength) {
-		return T{ 0 };
+		return 0.0f;
 	}
-	const auto constant = 45.0f / (Math::Tolerance<T>::getPI() * pow(effectLength, 6));
+	const auto constant = 45.0f / (Math::Tolerance<float>::getPI() * pow(effectLength, 6));
 	return (effectLength - distance) * constant;
 }
 
-template<typename T, typename int DIM>
-T SPHKernel<T, DIM>::getCubicSpline(const T q)
+float SPHKernel::getCubicSpline(const float q)
 {
-	const auto coe = T{ 3 } / Tolerance<T>::getTwoPI();
+	const auto coe = 3.0f / Tolerance<float>::getTwoPI();
 	if (q < 1) {
-		return coe * (T{ 2 } / T{ 3 }-q*q + T{ 0.5 }*q*q*q);
+		return coe * (2.0f / 3.0f-q*q + 0.5f*q*q*q);
 	}
 	else if (q < 2) {
-		return coe * (std::pow(2 - q, 3) / T{ 6 });
+		return coe * (std::pow(2 - q, 3) / 6.0f);
 	}
 	else {
 		return 0;
 	}
 }
 
-template<typename T, typename int DIM>
-T SPHKernel<T, DIM>::getCubicSpline(const T distance, const T effectRadius)
+float SPHKernel::getCubicSpline(const float distance, const float effectRadius)
 {
 	const auto q = distance * 2 / (effectRadius);
 	return getCubicSpline(q);
 }
 
-template<typename T, typename int DIM>
-Vector3d<T> SPHKernel<T, DIM>::getCubicSplineGradient(const Vector3d<T>& distanceVector)
+Vector3df SPHKernel::getCubicSplineGradient(const Vector3df& distanceVector)
 {
-	const auto coe = T{ 3 } / Tolerance<T>::getTwoPI();
-	const auto length = distanceVector.getLength();
-	const auto lengthSquared = distanceVector.getLengthSquared();
-	if (Tolerance<T>::isZeroStrictly(length)) {
-		return Vector3d<T>(0, 0, 0);
+	const auto coe = 3.0f / Tolerance<float>::getTwoPI();
+	const auto length = glm::length( distanceVector );
+	const auto lengthSquared = getLengthSquared( distanceVector );
+	if (Tolerance<float>::isZeroStrictly(length)) {
+		return Vector3df(0, 0, 0);
 	}
 	else if (length < 1) {
-		const auto var = -T{ 2 } *length + T{ 1.5 } *lengthSquared;
-		return coe * var * distanceVector.getNormalized();
+		const auto var = -2.0f *length + 1.5f *lengthSquared;
+		return coe * var * glm::normalize( distanceVector );
 	}
 	else if (length < 2) {
-		const auto var = -T{ 0.5 } *std::pow(T(2.0 - length), 2);
-		return coe * var * distanceVector.getNormalized();
+		const auto var = -0.5f * std::pow(2.0f - length, 2.0f);
+		return coe * var * glm::normalize( distanceVector );
 	}
 	else {
-		return Vector3d<T>(0, 0, 0);
+		return Vector3df(0, 0, 0);
 	}
 }
 
-template<typename T, typename int DIM>
-Vector3d<T> SPHKernel<T, DIM>::getCubicSplineGradient(const Vector3d<T>& distanceVector, const T effectRadius)
+Vector3df SPHKernel::getCubicSplineGradient(const Vector3df& distanceVector, const float effectRadius)
 {
-	const auto scale = distanceVector.getLength() * T { 2 } / effectRadius;
-	return getCubicSplineGradient(distanceVector.getScaled(scale));
+	const auto scale = distanceVector.length() * 2.0f / effectRadius;
+	return getCubicSplineGradient(distanceVector * scale);
 }
 
-template<typename T, typename int DIM>
-T SPHKernel<T, DIM>::getCubicSpline(const Vector3d<T>& v, const T effectLength)
+float SPHKernel::getCubicSpline(const Vector3df& v, const float effectLength)
 {
-	const auto q = v.getLength() / effectLength;
+	const auto q = v.length() / effectLength;
 	const auto numerator = getCubicSpline(q);
-	const auto denominator = std::pow(effectLength, DIM);
+	const auto denominator = std::pow(effectLength, 3);
 	return numerator / denominator;
 }
-
-template class SPHKernel<float>;

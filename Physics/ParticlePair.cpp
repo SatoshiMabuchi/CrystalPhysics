@@ -14,19 +14,19 @@ ParticlePair::ParticlePair(SPHParticle* particle1, SPHParticle* particle2) :
 {
 }
 
-Vector3d<float> ParticlePair::getDistanceVector() const
+Vector3df ParticlePair::getDistanceVector() const
 {
-	return Math::Vector3d<float>(particle1->getPosition() - particle2->getPosition());
+	return Math::Vector3df(particle1->getPosition() - particle2->getPosition());
 }
 
 float ParticlePair::getDistance() const
 {
-	return getDistanceVector().getLength();
+	return glm::length( getDistanceVector() );
 }
 
 float ParticlePair::getDistanceSquared() const
 {
-	return particle1->getPosition().getDistanceSquared(particle2->getPosition());
+	return Math::getDistanceSquared( particle1->getPosition(), particle2->getPosition());
 }
 
 float ParticlePair::getPressure() const
@@ -34,9 +34,9 @@ float ParticlePair::getPressure() const
 	return (particle1->getPressure() + particle2->getPressure()) * 0.5f;
 }
 
-Vector3d<float> ParticlePair::getVelocityDiff() const
+Vector3df ParticlePair::getVelocityDiff() const
 {
-	return Math::Vector3d<float>(particle1->getVelocity(), particle2->getVelocity());
+	return Math::Vector3df(particle1->getVelocity() - particle2->getVelocity());
 }
 
 bool ParticlePair::isValid() const

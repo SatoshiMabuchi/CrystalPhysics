@@ -16,15 +16,15 @@ class PhysicsObject
 public:
 	PhysicsObject() {};
 
-	PhysicsObject(const Math::Box3d<float>& box, const float divideLength, const SPHConstant& constant);
+	//PhysicsObject(const Math::Box3d& box, const float divideLength, const SPHConstant& constant);
 
 //	PhysicsObject(const Math::Sphere<float>& sphere, const float divideLength, const SPHConstant& constant);
 
 	PhysicsObject(const std::vector<SPHParticle*>& particles);
 
-	SPHParticle* createParticle(const Math::Vector3d<float>& position, const Math::Vector3d<float>& velocity);
+	SPHParticle* createParticle(const Math::Vector3df& position, const Math::Vector3df& velocity);
 
-	std::vector<SPHParticle*> createParticles(const Math::Box3d<float>& box, const float divideLength);
+	//std::vector<SPHParticle*> createParticles(const Math::Box3d& box, const float divideLength);
 
 //	std::vector<SPHParticle*> createParticles(const Math::Sphere<float>& sphere, const float divideLength);
 
@@ -44,19 +44,19 @@ public:
 
 	void forwardTime(const float timeStep);
 
-	void addExternalForce(const Math::Vector3d<float>& force);
+	void addExternalForce(const Math::Vector3df& force);
 
-	Math::Vector3d<float> getCenter() const;
+	Math::Vector3df getCenter() const;
 
-	Math::Vector3d<float> getAverageVelosity() const;
+	Math::Vector3df getAverageVelosity() const;
 
 	float getWeight() const;
 
 	void convertToFluidForce();
 
-	void move(const Math::Vector3d<float>& v);
+	void move(const Math::Vector3df& v);
 
-	void setVelocity(const Math::Vector3d<float>& velocity);
+	void setVelocity(const Math::Vector3df& velocity);
 
 private:
 	int nextId;
