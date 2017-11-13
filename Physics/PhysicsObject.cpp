@@ -167,3 +167,15 @@ void PhysicsObject::setVelocity(const Vector3df& velocity)
 		p->setVelocity(velocity);
 	}
 }
+
+Box3d PhysicsObject::getBoundingBox() const
+{
+	if (particles.empty()) {
+		return Box3d();
+	}
+	Box3d box(particles.front()->getPosition());
+	for (auto p : particles) {
+		box.add( p->getPosition() );
+	}
+	return box;
+}

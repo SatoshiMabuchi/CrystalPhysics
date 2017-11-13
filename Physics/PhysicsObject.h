@@ -58,6 +58,8 @@ public:
 
 	void setVelocity(const Math::Vector3df& velocity);
 
+	Math::Box3d getBoundingBox() const;
+
 private:
 	int nextId;
 	std::vector<SPHParticle*> particles;
