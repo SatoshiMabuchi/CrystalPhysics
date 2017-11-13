@@ -7,32 +7,31 @@ using namespace Crystal::Physics;
 
 TEST(SPHKernelTest, TestGetPoly6Kernel)
 {
-	SPHKernel<float> kernel;
+	SPHKernel kernel;
 	EXPECT_EQ(0.0f, kernel.getPoly6Kernel(1.1f, 1.0f));
 }
 
 TEST(SPHKernelTest, TestGetPoly6KernelGradient)
 {
-	SPHKernel<float> kernel;
-	EXPECT_EQ(Vector3d<float>(0, 0, 0), kernel.getPoly6KernelGradient(Vector3d<float>(1.1f, 0.0f, 0.0f), 1.0f));
+	SPHKernel kernel;
+	EXPECT_EQ(Vector3df(0, 0, 0), kernel.getPoly6KernelGradient(Vector3df(1.1f, 0.0f, 0.0f), 1.0f));
 }
 
 TEST(SPHKernelTest, TestGetPoly6KernelLaplacian)
 {
-	SPHKernel<float> kernel;
+	SPHKernel kernel;
 	EXPECT_EQ(0.0f, kernel.getPoly6KernelLaplacian(1.1f, 1.0f));
 }
 
 TEST(SPHKernelTest, TestGetSpikyKernelGradient)
 {
-	SPHKernel<float> kernel;
-	EXPECT_EQ(Vector3d<float>(0, 0, 0), kernel.getSpikyKernelGradient(Vector3d<float>(1.1f, 0.0, 0.0), 1.0f));
+	SPHKernel kernel;
+	EXPECT_EQ(Vector3df(0, 0, 0), kernel.getSpikyKernelGradient(Vector3df(1.1f, 0.0, 0.0), 1.0f));
 }
-
 
 TEST(SPHKernelTest, TestGetCubicSpiline)
 {
-	SPHKernel<float> kernel;
+	SPHKernel kernel;
 	{
 		const auto actual = kernel.getCubicSpline(0);
 		const auto expected = 1.0f / Tolerance<float>::getPI();
@@ -52,7 +51,7 @@ TEST(SPHKernelTest, TestGetCubicSpiline)
 
 TEST(SPHKernelTest, TestGetCubicSpilineWithEffectRadius)
 {
-	SPHKernel<float> kernel;
+	SPHKernel kernel;
 	{
 		const auto actual = kernel.getCubicSpline(0, 1.0f);
 		const auto expected = 1.0f / Tolerance<float>::getPI();
@@ -73,20 +72,20 @@ TEST(SPHKernelTest, TestGetCubicSpilineWithEffectRadius)
 
 TEST(SPHKernelTest, TestGetCubicSpilineByVector)
 {
-	SPHKernel<float> kernel;
+	SPHKernel kernel;
 	{
-		const auto actual = kernel.getCubicSpline(Vector3d<float>(1, 0, 0), 1.0f);
+		const auto actual = kernel.getCubicSpline(Vector3df(1, 0, 0), 1.0f);
 		const auto expected = 1.0f / (4 * Tolerance<float>::getPI());
 		EXPECT_TRUE(Tolerance<float>::isEqualLoosely(expected, actual));
 	}
 	{
-		const auto actual = kernel.getCubicSpline(Vector3d<float>(2, 0, 0), 1.0f);
+		const auto actual = kernel.getCubicSpline(Vector3df(2, 0, 0), 1.0f);
 		const auto expected = 0.0f;
 		EXPECT_TRUE(Tolerance<float>::isEqualLoosely(expected, actual));
 	}
 
 	{
-		const auto actual = kernel.getCubicSpline(Vector3d<float>(2, 0, 0), 2.0f);
+		const auto actual = kernel.getCubicSpline(Vector3df(2, 0, 0), 2.0f);
 		const auto expected = 1.0f / (4 * Tolerance<float>::getPI()) / 8;
 		EXPECT_TRUE(Tolerance<float>::isEqualLoosely(expected, actual));
 	}
@@ -96,46 +95,45 @@ TEST(SPHKernelTest, TestGetCubicSpilineByVector)
 TEST(SPHKernelTest, TestGetCubicSplineGradient)
 {
 	using T = float;
-	SPHKernel<T> kernel;
+	SPHKernel kernel;
 
 	{
-		Vector3d<T> v(0, 0, 0);
+		Vector3df v(0, 0, 0);
 		const auto& grad = kernel.getCubicSplineGradient(v);
 	}
 
 	{
-		Vector3d<T> v(0.25, 0, 0);
+		Vector3df v(0.25, 0, 0);
 		const auto& grad = kernel.getCubicSplineGradient(v);
 		const auto v1 = kernel.getCubicSpline(0.25f);
 		const auto v2 = kernel.getCubicSpline(0.25f + 1.0e-4f);
 		const auto diff = (v2 - v1) / 1.0e-4f;
 
-		EXPECT_TRUE(::fabs(diff - grad.getX())<1.0e-3f);
+		EXPECT_TRUE(::fabs(diff - grad.x)<1.0e-3f);
 	}
 
 	{
-		Vector3d<T> v(0.5, 0, 0);
+		Vector3df v(0.5, 0, 0);
 		const auto& grad = kernel.getCubicSplineGradient(v);
-		std::cout << grad.getX() << std::endl;
 		const auto v1 = kernel.getCubicSpline(0.5f);
 		const auto v2 = kernel.getCubicSpline(0.5f + 1.0e-4f);
 		const auto diff = (v2 - v1) / 1.0e-4f;
-		EXPECT_TRUE(::fabs(diff - grad.getX())<1.0e-3f);
+		EXPECT_TRUE(::fabs(diff - grad.x)<1.0e-3f);
 
 	}
 
 	{
-		Vector3d<T> v(0.75, 0, 0);
+		Vector3df v(0.75, 0, 0);
 		const auto& grad = kernel.getCubicSplineGradient(v);
 		const auto v1 = kernel.getCubicSpline(0.75f);
 		const auto v2 = kernel.getCubicSpline(0.75f + 1.0e-4f);
 		const auto diff = (v2 - v1) / 1.0e-4f;
-		EXPECT_TRUE(::fabs(diff - grad.getX())<1.0e-3f);
+		EXPECT_TRUE(::fabs(diff - grad.x)<1.0e-3f);
 
 	}
 
 	{
-		Vector3d<T> v(1, 0, 0);
+		Vector3df v(1, 0, 0);
 		const auto& grad = kernel.getCubicSplineGradient(v);
 
 		const auto v1 = kernel.getCubicSpline(1);
@@ -148,10 +146,10 @@ TEST(SPHKernelTest, TestGetCubicSplineGradient)
 TEST(SPHKernelTest, TestGetCubicSplineGradientWithEffectRadius)
 {
 	using T = float;
-	SPHKernel<T> kernel;
+	SPHKernel kernel;
 	const T effectRadius = 1.0f;
 	{
-		Vector3d<T> v(0, 0, 0);
+		Vector3df v(0, 0, 0);
 		const auto& grad = kernel.getCubicSplineGradient(v, effectRadius);
 		const auto v1 = kernel.getCubicSpline(0.0, effectRadius);
 		const auto v2 = kernel.getCubicSpline(0.0f + 1.0e-4f, effectRadius);

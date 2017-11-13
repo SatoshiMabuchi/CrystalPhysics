@@ -36,7 +36,16 @@ void PhysicsPanel::show()
 		SPHConstant constant(density, pressureCoe, viscosityCoe, 0.0f, divideLength * 1.25);
 		if (ImGui::Button("OK")) {
 			Box3d box(Vector3df(0.0, 0.0, 0.0), Vector3df(1.0, 1.0, 1.0));
-			//PhysicsObject* object = new PhysicsObject(box, divideLength, constant);
+			PhysicsObject* object = new PhysicsObject();
+			for (auto x = box.getMinX(); x < box.getMaxX(); x += 0.1f) {
+				for (auto y = box.getMinY(); y < box.getMaxY(); y += 0.1f) {
+					for (auto z = box.getMinZ(); z < box.getMaxZ(); z += 0.1f) {
+						object->createParticle(Vector3df(x, y, z), Vector3df(0, 0, 0));
+					}
+				}
+			}
+			//object->
+			//box, divideLength, constant);
 			//world.add(object);
 			ImGui::CloseCurrentPopup();
 		}

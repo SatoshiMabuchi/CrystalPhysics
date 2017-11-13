@@ -129,13 +129,13 @@ Vector3df SPHKernel::getCubicSplineGradient(const Vector3df& distanceVector)
 
 Vector3df SPHKernel::getCubicSplineGradient(const Vector3df& distanceVector, const float effectRadius)
 {
-	const auto scale = distanceVector.length() * 2.0f / effectRadius;
+	const auto scale = glm::length( distanceVector ) * 2.0f / effectRadius;
 	return getCubicSplineGradient(distanceVector * scale);
 }
 
 float SPHKernel::getCubicSpline(const Vector3df& v, const float effectLength)
 {
-	const auto q = v.length() / effectLength;
+	const auto q = glm::length(v) / effectLength;
 	const auto numerator = getCubicSpline(q);
 	const auto denominator = std::pow(effectLength, 3);
 	return numerator / denominator;
