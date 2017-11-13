@@ -60,7 +60,7 @@ void PhysicsPanel::show()
 		isUnderSimulation = !isUnderSimulation;
 	}
 	if (isUnderSimulation) {
-		const float timeStep = 0.01f;
+		const float timeStep = 0.03f;
 		model->getSolver()->simulate(1.25f, timeStep);
 		canvas->setViewModel(model->toViewModel());
 	}
