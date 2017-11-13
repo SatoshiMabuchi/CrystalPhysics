@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../Crystal/AppBase/IPanel.h"
-#include "../Physics/PhysicsWorld.h"
+#include "../Physics/STSPHSolver.h"
 
 namespace Crystal {
 	namespace UI {
@@ -15,7 +15,7 @@ public:
 
 private:
 	bool isUnderSimulation;
-	Physics::PhysicsWorld world;
+	Physics::STSPHSolver world;
 };
 	}
 }

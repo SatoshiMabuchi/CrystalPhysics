@@ -1,4 +1,4 @@
-#include "PhysicsWorld.h"
+#include "STSPHSolver.h"
 #include "SPHParticle.h"
 #include "BoundarySolver.h"
 
@@ -7,13 +7,13 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-void PhysicsWorld::clear()
+void STSPHSolver::clear()
 {
 	timeStep = 0;
 	objects.clear();
 }
 
-void PhysicsWorld::simulate(const float effectLength, const float timeStep)
+void STSPHSolver::simulate(const float effectLength, const float timeStep)
 {
 	this->timeStep++;
 
@@ -74,14 +74,4 @@ void PhysicsWorld::simulate(const float effectLength, const float timeStep)
 	for (const auto& object : objects) {
 		object->forwardTime(timeStep);
 	}
-}
-
-std::vector<SPHParticle*> PhysicsWorld::getParticles() const
-{
-	std::vector<SPHParticle*> results;
-	for (const auto& object : objects) {
-		const auto& particles = object->getParticles();
-		results.insert(results.end(), particles.begin(), particles.end());
-	}
-	return results;
 }

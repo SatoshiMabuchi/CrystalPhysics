@@ -9,5 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PhysicsPanel.h" />
+    <ClInclude Include="PhysicsModel.h" />
   </ItemGroup>
 </Project>

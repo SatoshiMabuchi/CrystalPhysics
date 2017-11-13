@@ -1,24 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClInclude Include="SPHParticle.h" />
     <ClInclude Include="SPHConstant.h" />
     <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="PhysicsObject.h" />
-    <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="BoundarySolver.h" />
     <ClInclude Include="IndexedFinder.h" />
-    <ClInclude Include="ParticlePair.h" />
     <ClInclude Include="IndexedParticle.h" />
+    <ClInclude Include="DFSPHSolver.h">
+      <Filter>Solver</Filter>
+    </ClInclude>
+    <ClInclude Include="STSPHSolver.h">
+      <Filter>Solver</Filter>
+    </ClInclude>
+    <ClInclude Include="ISPHSolver.h">
+      <Filter>Solver</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlePair.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="SPHParticle.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="DFSPHParticle.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SPHParticle.cpp" />
     <ClCompile Include="SPHKernel.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
-    <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="BoundarySolver.cpp" />
-    <ClCompile Include="ParticlePair.cpp" />
     <ClCompile Include="IndexedFinder.cpp" />
     <ClCompile Include="IndexedParticle.cpp" />
+    <ClCompile Include="DFSPHSolver.cpp">
+      <Filter>Solver</Filter>
+    </ClCompile>
+    <ClCompile Include="STSPHSolver.cpp">
+      <Filter>Solver</Filter>
+    </ClCompile>
+    <ClCompile Include="ISPHSolver.cpp">
+      <Filter>Solver</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlePair.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="SPHParticle.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="DFSPHParticle.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Solver">
+      <UniqueIdentifier>{450aecba-d1e0-4714-813f-a323cfc1d522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{17145271-8b6c-4da3-8403-2b10582a9f65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
