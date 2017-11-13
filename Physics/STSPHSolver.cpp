@@ -43,29 +43,12 @@ void STSPHSolver::simulate(const float effectLength, const float timeStep)
 		pairs[i].solveViscosityForce();
 	}
 
-#pragma omp parallel for
-	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
-		pairs[i].getParticle1()->solveNormal(*pairs[i].getParticle2());
-		pairs[i].getParticle2()->solveNormal(*pairs[i].getParticle1());
-
-	}
-
-#pragma omp parallel for
-	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
-		pairs[i].solveSurfaceTension();
-	}
-
 	for (const auto& object : objects) {
 		object->addExternalForce(externalForce);
 	}
 
 	BoundarySolver boundarySolver(timeStep, boundary);
 	boundarySolver.solve(particles);
-
-	for (const auto& object : objects) {
-		object->addExternalForce(externalForce);
-	}
-
 
 	for (const auto& object : objects) {
 		object->coordinate(timeStep);

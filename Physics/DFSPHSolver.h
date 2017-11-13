@@ -10,7 +10,7 @@ namespace Crystal {
 class DFSPHSolver : public ISPHSolver
 {
 public:
-	void simulate(const double dt, const double effectLength);
+	virtual void simulate(const float effectLength, const float timeStep);
 
 	std::vector< PhysicsObject* > objects;
 

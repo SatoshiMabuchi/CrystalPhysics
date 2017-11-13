@@ -20,17 +20,11 @@ public:
 
 	void simulate(const float effectLength, const float timeStep);
 
-	void setBoundary(const Math::Box3d& boundary) { this->boundary = boundary; }
-
-	void setExternalForce(const Math::Vector3df& force) { this->externalForce = force; }
-
 	int getTimeStep() const { return timeStep; }
 
 private:
 	int timeStep;
-	Math::Vector3df externalForce;
 	SPHKernel kernel;
-	Math::Box3d boundary;
 };
 
 	}

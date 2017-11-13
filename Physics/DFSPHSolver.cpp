@@ -5,7 +5,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-void DFSPHSolver::simulate(const double dt, const double effectLength)
+void DFSPHSolver::simulate(const float dt, const float effectLength)
 {
 	const auto& particles = getParticles();
 

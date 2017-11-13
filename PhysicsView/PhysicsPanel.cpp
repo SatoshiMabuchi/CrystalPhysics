@@ -23,7 +23,7 @@ void PhysicsPanel::show()
 		ImGui::OpenPopup("Add");
 	}
 	if (ImGui::BeginPopup("Add")) {
-		static float point1[3] = { -10.0f, -10.0f, -10.0f };
+		static float point1[3] = { -10.0f, 1.0f, -10.0f };
 		ImGui::InputFloat3("Point1", point1);
 		static float point2[3] = { 10.0f, 10.0f, 10.0f };
 		ImGui::InputFloat3("Point2", point2);
@@ -38,7 +38,7 @@ void PhysicsPanel::show()
 		ImGui::InputFloat("ViscosityCoe", &viscosityCoe);
 		SPHConstant constant(density, pressureCoe, viscosityCoe, 0.0f, divideLength * 1.25);
 		if (ImGui::Button("OK")) {
-			PhysicsObject* object = new PhysicsObject();
+			PhysicsObject* object = new PhysicsObject(constant);
 			for (auto x = point1[0]; x < point2[0]; x += divideLength) {
 				for (auto y = point1[1]; y < point2[1]; y += divideLength) {
 					for (auto z = point1[2]; z < point2[2]; z += divideLength) {
@@ -57,13 +57,12 @@ void PhysicsPanel::show()
 		ImGui::EndPopup();
 	}
 	if (ImGui::Button("Start")) {
-		//setExternalForce(Vector3df(0.0, -9.8, 0.0));
-		//world.setBoundary(Box3d(Vector3df(-100.0, 0.0, 0.0), Vector3df(100, 1.0, 1.0)));
 		isUnderSimulation = !isUnderSimulation;
 	}
 	if (isUnderSimulation) {
-		const float timeStep = 0.001f;
-		//world.simulate(0.125f, timeStep);
+		const float timeStep = 0.01f;
+		model->getSolver()->simulate(1.25f, timeStep);
+		canvas->setViewModel(model->toViewModel());
 	}
 	ImGui::End();
 }

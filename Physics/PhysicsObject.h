@@ -16,7 +16,9 @@ class PhysicsObject
 public:
 	PhysicsObject() {};
 
-	//PhysicsObject(const Math::Box3d& box, const float divideLength, const SPHConstant& constant);
+	explicit PhysicsObject(const SPHConstant& constant) :
+		constant(constant)
+	{}
 
 //	PhysicsObject(const Math::Sphere<float>& sphere, const float divideLength, const SPHConstant& constant);
 
