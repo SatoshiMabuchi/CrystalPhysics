@@ -11,5 +11,6 @@
   <ItemGroup>
     <ClInclude Include="PhysicsPanel.h" />
     <ClInclude Include="PhysicsModel.h" />
+    <ClInclude Include="PhysicsRenderer.h" />
   </ItemGroup>
 </Project>

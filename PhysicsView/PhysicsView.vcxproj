@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="PhysicsModel.h" />
     <ClInclude Include="PhysicsPanel.h" />
+    <ClInclude Include="PhysicsRenderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
