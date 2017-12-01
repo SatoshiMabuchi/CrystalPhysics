@@ -1,0 +1,14 @@
+﻿################################################################################
+# この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
+################################################################################
+
+/.vs/CrystalPhysics
+/FluidRenderer/x64/Debug
+/ipch/FLUIDRENDERER-f50b44ec
+/packages
+/Physics/x64
+/PhysicsTest/x64/Debug
+/PhysicsView/x64
+/PhysicsView/imgui.ini
+/x64
+/CrystalPhysics.VC.db

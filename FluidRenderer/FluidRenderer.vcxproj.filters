@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="FluidRenderer.h" />
+    <ClInclude Include="ParticleDepthRenderer.h" />
+    <ClInclude Include="SSThicknessRenderer.h" />
+    <ClInclude Include="NormalFilter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FluidRenderer.cpp" />
+    <ClCompile Include="ParticleDepthRenderer.cpp" />
+    <ClCompile Include="SSThicknessRenderer.cpp" />
+    <ClCompile Include="NormalFilter.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

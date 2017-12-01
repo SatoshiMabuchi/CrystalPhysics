@@ -50,6 +50,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IO", "..\Crystal\IO\IO.vcxp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Math", "..\Crystal\Math\Math.vcxproj", "{EF054C93-201B-4807-9285-CABC9C68978A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FluidRenderer", "FluidRenderer\FluidRenderer.vcxproj", "{EA283837-9E78-4B29-85B8-F73FCED5C589}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -130,6 +132,14 @@ Global
 		{EF054C93-201B-4807-9285-CABC9C68978A}.Release|x64.Build.0 = Release|x64
 		{EF054C93-201B-4807-9285-CABC9C68978A}.Release|x86.ActiveCfg = Release|Win32
 		{EF054C93-201B-4807-9285-CABC9C68978A}.Release|x86.Build.0 = Release|Win32
+		{EA283837-9E78-4B29-85B8-F73FCED5C589}.Debug|x64.ActiveCfg = Debug|x64
+		{EA283837-9E78-4B29-85B8-F73FCED5C589}.Debug|x64.Build.0 = Debug|x64
+		{EA283837-9E78-4B29-85B8-F73FCED5C589}.Debug|x86.ActiveCfg = Debug|Win32
+		{EA283837-9E78-4B29-85B8-F73FCED5C589}.Debug|x86.Build.0 = Debug|Win32
+		{EA283837-9E78-4B29-85B8-F73FCED5C589}.Release|x64.ActiveCfg = Release|x64
+		{EA283837-9E78-4B29-85B8-F73FCED5C589}.Release|x64.Build.0 = Release|x64
+		{EA283837-9E78-4B29-85B8-F73FCED5C589}.Release|x86.ActiveCfg = Release|Win32
+		{EA283837-9E78-4B29-85B8-F73FCED5C589}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
