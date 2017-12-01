@@ -8,6 +8,8 @@
     <ClInclude Include="BilateralFilter.h" />
     <ClInclude Include="SSAbsorptionRenderer.h" />
     <ClInclude Include="DeferredRenderer.h" />
+    <ClInclude Include="SSRefractionRenderer.h" />
+    <ClInclude Include="SSReflectionRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FluidRenderer.cpp" />
@@ -17,6 +19,8 @@
     <ClCompile Include="BIlateralFilter.cpp" />
     <ClCompile Include="SSAbsorptionRenderer.cpp" />
     <ClCompile Include="DeferredRenderer.cpp" />
+    <ClCompile Include="SSRefractionRenderer.cpp" />
+    <ClCompile Include="SSReflectionRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

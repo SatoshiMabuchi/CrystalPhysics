@@ -106,7 +106,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Math.lib;Physics.lib;Graphics.lib;IO.lib;Shader.lib;UI.lib;AppBase.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Physics.lib;IO.lib;Shader.lib;UI.lib;AppBase.lib;FluidRenderer.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -143,12 +143,13 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(SolutionDir)\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Math.lib;Physics.lib;Graphics.lib;IO.lib;Shader.lib;UI.lib;AppBase.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Physics.lib;IO.lib;Shader.lib;UI.lib;AppBase.lib;FluidRenderer.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="PhysicsModel.cpp" />
     <ClCompile Include="PhysicsPanel.cpp" />
+    <ClCompile Include="PhysicsRenderer.cpp" />
     <ClCompile Include="PhysicsView.cpp" />
   </ItemGroup>
   <ItemGroup>

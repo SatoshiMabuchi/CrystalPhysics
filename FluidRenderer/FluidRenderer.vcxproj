@@ -133,6 +133,8 @@
     <ClInclude Include="NormalFilter.h" />
     <ClInclude Include="ParticleDepthRenderer.h" />
     <ClInclude Include="SSAbsorptionRenderer.h" />
+    <ClInclude Include="SSReflectionRenderer.h" />
+    <ClInclude Include="SSRefractionRenderer.h" />
     <ClInclude Include="SSThicknessRenderer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +144,8 @@
     <ClCompile Include="NormalFilter.cpp" />
     <ClCompile Include="ParticleDepthRenderer.cpp" />
     <ClCompile Include="SSAbsorptionRenderer.cpp" />
+    <ClCompile Include="SSReflectionRenderer.cpp" />
+    <ClCompile Include="SSRefractionRenderer.cpp" />
     <ClCompile Include="SSThicknessRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -149,12 +153,14 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\glew.v140.1.12.0\build\native\glew.v140.targets" Condition="Exists('..\packages\glew.v140.1.12.0\build\native\glew.v140.targets')" />
+    <Import Project="..\packages\glew.redist.1.9.0.1\build\native\glew.redist.targets" Condition="Exists('..\packages\glew.redist.1.9.0.1\build\native\glew.redist.targets')" />
+    <Import Project="..\packages\glew.1.9.0.1\build\native\glew.targets" Condition="Exists('..\packages\glew.1.9.0.1\build\native\glew.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\glew.v140.1.12.0\build\native\glew.v140.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glew.v140.1.12.0\build\native\glew.v140.targets'))" />
+    <Error Condition="!Exists('..\packages\glew.redist.1.9.0.1\build\native\glew.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glew.redist.1.9.0.1\build\native\glew.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\glew.1.9.0.1\build\native\glew.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\glew.1.9.0.1\build\native\glew.targets'))" />
   </Target>
 </Project>

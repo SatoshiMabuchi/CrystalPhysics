@@ -26,7 +26,7 @@ ViewModel PhysicsModel::toViewModel() const
 	for (const auto& ps : particleSystems) {
 		const auto& particles = ps->getParticles();
 		for (auto p : particles) {
-			vm.add(p->getPosition(), ColorRGBAf(1,1,1,1), 1.0f);
+			vm.add(p->getPosition(), ColorRGBAf(1,1,1,1), 1000.0f);
 		}
 	}
 	return vm;
