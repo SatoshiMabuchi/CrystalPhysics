@@ -127,15 +127,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BilateralFilter.h" />
+    <ClInclude Include="DeferredRenderer.h" />
     <ClInclude Include="FluidRenderer.h" />
     <ClInclude Include="NormalFilter.h" />
     <ClInclude Include="ParticleDepthRenderer.h" />
+    <ClInclude Include="SSAbsorptionRenderer.h" />
     <ClInclude Include="SSThicknessRenderer.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BIlateralFilter.cpp" />
+    <ClCompile Include="DeferredRenderer.cpp" />
     <ClCompile Include="FluidRenderer.cpp" />
     <ClCompile Include="NormalFilter.cpp" />
     <ClCompile Include="ParticleDepthRenderer.cpp" />
+    <ClCompile Include="SSAbsorptionRenderer.cpp" />
     <ClCompile Include="SSThicknessRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>

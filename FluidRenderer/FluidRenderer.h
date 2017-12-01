@@ -4,6 +4,7 @@
 #include "ParticleDepthRenderer.h"
 #include "../../Crystal/Shader/DepthTextureObject.h"
 #include "../../Crystal/Shader/ITextureObject.h"
+#include "../../Crystal/Shader/TextureObject.h"
 #include "FrameBuffer.h"
 #include "NormalFilter.h"
 #include "PointRenderer.h"

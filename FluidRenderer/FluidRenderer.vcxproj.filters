@@ -5,12 +5,18 @@
     <ClInclude Include="ParticleDepthRenderer.h" />
     <ClInclude Include="SSThicknessRenderer.h" />
     <ClInclude Include="NormalFilter.h" />
+    <ClInclude Include="BilateralFilter.h" />
+    <ClInclude Include="SSAbsorptionRenderer.h" />
+    <ClInclude Include="DeferredRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FluidRenderer.cpp" />
     <ClCompile Include="ParticleDepthRenderer.cpp" />
     <ClCompile Include="SSThicknessRenderer.cpp" />
     <ClCompile Include="NormalFilter.cpp" />
+    <ClCompile Include="BIlateralFilter.cpp" />
+    <ClCompile Include="SSAbsorptionRenderer.cpp" />
+    <ClCompile Include="DeferredRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

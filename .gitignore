@@ -12,3 +12,5 @@
 /PhysicsView/imgui.ini
 /x64
 /CrystalPhysics.VC.db
+/FluidRenderer/x64/Release
+/CrystalPhysics.VC.VC.opendb
