@@ -12,6 +12,7 @@
 #include "../FluidRenderer/ParticleDepthRenderer.h"
 #include "../FluidRenderer/BilateralFilter.h"
 #include "../FluidRenderer/SSThicknessRenderer.h"
+#include "../FluidRenderer/DeferredRenderer.h"
 
 namespace Crystal {
 	namespace UI {
@@ -29,6 +30,7 @@ public:
 		this->pointRenderer.setBuffer( vm.getPointBuffer() );
 	}
 
+
 	void render(const int width, const int height) override;
 
 private:
@@ -39,12 +41,15 @@ private:
 	Shader::DepthTextureObject depthTexture;
 	Shader::OnScreenRenderer onScreenRenderer;
 	Shader::SSThicknessRenderer thicknessRenderer;
+	Shader::DeferredRenderer deferredRenderer;
+	
 	Shader::DepthBuffer depthBuffer;
 	Shader::FrameBuffer frameBuffer;
 	Shader::NormalFilter normalFilter;
 	Shader::TextureObject bluredDepthTexture;
 	Shader::TextureObject normalTexture;
 	Shader::TextureObject thicknessTexture;
+	Shader::TextureObject shadedTexture;
 
 	Graphics::ICamera* camera;
 };

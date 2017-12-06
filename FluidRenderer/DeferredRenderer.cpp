@@ -122,7 +122,6 @@ void DeferredRenderer::findLocation()
 
 void DeferredRenderer::render(const ITextureObject& depthTexture, const ITextureObject& normalTexture, const ICamera& renderedCamera, const PointLight& light, const Material& material)
 {
-	/*
 	const Box2d box(Vector2df(-1.0, -1.0), Vector2df(1.0, 1.0));
 	const auto& positions = box.toArray();
 
@@ -134,27 +133,37 @@ void DeferredRenderer::render(const ITextureObject& depthTexture, const ITexture
 
 	glUseProgram(shader.getId());
 
+	const auto& matrix = renderedCamera.getProjectionMatrix();
+
 	depthTexture.bind();
 	normalTexture.bind();
 
-	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, renderedCamera.getProjectionMatrix().toArray().data());
-	glUniform3fv(shader.getUniformLocation("eyePosition"), 1, renderedCamera.getPosition().toArray3().data());
+	const auto& cameraPos = renderedCamera.getPosition();
+	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, &matrix[0][0]);
+	glUniform3fv(shader.getUniformLocation("eyePosition"), 1, &cameraPos[0]);
 
 	glUniform1i(shader.getUniformLocation("depthTex"), depthTexture.getId());
 	glUniform1i(shader.getUniformLocation("normalTex"), normalTexture.getId());
 
-	glUniform3fv(shader.getUniformLocation("light.position"), 1, light.getPos().);
-	glUniform3fv(shader.getUniformLocation("light.La"), 1, light.getAmbient().toArray3().data());
-	glUniform3fv(shader.getUniformLocation("light.Ld"), 1, light.getDiffuse().toArray3().data());
-	glUniform3fv(shader.getUniformLocation("light.Ls"), 1, light.getSpecular().toArray3().data());
+	const auto& lightPos = light.getPos();
+	glUniform3fv(shader.getUniformLocation("light.position"), 1, &lightPos[0]);
+	const auto& ambient = light.getAmbient();
+	glUniform3fv(shader.getUniformLocation("light.La"), 1, &ambient[0]);
+	const auto& diffuse = light.getDiffuse();
+	glUniform3fv(shader.getUniformLocation("light.Ld"), 1, &diffuse[0]);
+	const auto& specular = light.getDiffuse();
+	glUniform3fv(shader.getUniformLocation("light.Ls"), 1, &specular[0]);
 
-	glUniform3fv(shader.getUniformLocation("material.Ka"), 1, material.getAmbient().toArray3().data());
-	glUniform3fv(shader.getUniformLocation("material.Kd"), 1, material.getDiffuse().toArray3().data());
-	glUniform3fv(shader.getUniformLocation("material.Ks"), 1, material.getSpecular().toArray3().data());
+	const auto& ka = material.getAmbient();
+	glUniform3fv(shader.getUniformLocation("material.Ka"), 1, &ka[0]);
+	const auto& kd = material.getDiffuse();
+	glUniform3fv(shader.getUniformLocation("material.Kd"), 1, &kd[0]);
+	const auto& ks = material.getSpecular();
+	glUniform3fv(shader.getUniformLocation("material.Ks"), 1, &ks[0]);
 	glUniform1f(shader.getUniformLocation("material.shininess"), material.getShininess());
 
 
-	glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
+	glVertexAttribPointer(shader.getAttribLocation("position"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
 
 	glEnableVertexAttribArray(0);
 	glDrawArrays(GL_QUADS, 0, positions.size() / 2);
@@ -167,5 +176,4 @@ void DeferredRenderer::render(const ITextureObject& depthTexture, const ITexture
 	glDisable(GL_DEPTH_TEST);
 
 	glUseProgram(0);
-	*/
 }

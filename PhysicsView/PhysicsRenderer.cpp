@@ -35,6 +35,10 @@ bool PhysicsRenderer::build()
 		return false;
 	}
 	thicknessTexture.create(Imagef(512, 512, 3));
+	if (!deferredRenderer.build()) {
+		return false;
+	}
+	shadedTexture.create(Imagef(512, 512), 4);
 	return true;
 }
 
@@ -68,30 +72,21 @@ void PhysicsRenderer::render(const int width, const int height)
 	thicknessTexture.bind();
 	thicknessRenderer.render(*camera, pointBuffer);
 	thicknessTexture.unbind();
+
+	PointLight light;
+	light.setAmbient(glm::vec4(1, 1, 1, 1));
+	Material material;
+	material.setAmbient(glm::vec4(1, 1, 1, 1));
+	material.setShininess(1.0);
+
+	frameBuffer.setTexture(shadedTexture);
+	shadedTexture.bind();
+	deferredRenderer.render(bluredDepthTexture, normalTexture, *camera, light, material);
+	shadedTexture.unbind();
+
 	frameBuffer.unbind();
 
-
 	glViewport(0, 0, width, height);
-	onScreenRenderer.render(thicknessTexture);
+	onScreenRenderer.render(shadedTexture);
 	glFlush();
-	/*
-	glClearColor(0.0, 0.0, 1.0, 0.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//pointRenderer.render(*camera);
-
-	depthTexture.bind();
-	glViewport(0, 0, 512, 512);
-	glClearColor(0.0, 0.0, 1.0, 0.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	depthRenderer.render(*camera, pointBuffer);
-	glFlush();
-	depthTexture.unbind();
-
-	glViewport(0, 0, width, height);
-	glClearColor(1.0, 1.0, 1.0, 0.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	onScreenRenderer.render(depthTexture);
-	glFlush();
-	//bilateralFilter.render()
-	*/
 }
