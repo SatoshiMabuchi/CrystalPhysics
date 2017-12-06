@@ -15,6 +15,8 @@ class PhysicsModel : public UI::IModel
 public:
 	PhysicsModel();
 
+	void clear();
+
 	void addPhysicsObject(Physics::PhysicsObject* object);
 
 	//std::list<ParticleSystemObject> getParticleSystems() const { return objects.getParticleSystems(); }

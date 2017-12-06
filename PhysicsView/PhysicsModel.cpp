@@ -14,6 +14,11 @@ PhysicsModel::PhysicsModel()
 	solver->setBoundary(Box3d(Vector3df(-20.0, 0.0, 0.0), Vector3df(20, 100.0, 20.0)));
 }
 
+void PhysicsModel::clear()
+{
+	physicsObjects.clear();
+}
+
 void PhysicsModel::addPhysicsObject(PhysicsObject* object) {
 	solver->add(object);
 	physicsObjects.push_back(object);

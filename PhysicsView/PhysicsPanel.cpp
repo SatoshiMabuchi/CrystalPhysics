@@ -5,6 +5,7 @@
 #include "../../Crystal/Math/Box3d.h"
 #include "../../Crystal/UI/ICanvas.h"
 #include "../Physics/PhysicsObject.h"
+#include <iostream>
 
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
@@ -19,6 +20,12 @@ PhysicsPanel::PhysicsPanel(PhysicsModel* model, ICanvas* canvas) :
 void PhysicsPanel::show()
 {
 	ImGui::Begin("Physics");
+	if (ImGui::Button("Clear")) {
+		ImGui::OpenPopup("Clear");
+		model->clear();
+		canvas->setViewModel(model->toViewModel());
+	}
+
 	if (ImGui::Button("Add")) {
 		ImGui::OpenPopup("Add");
 	}
@@ -48,6 +55,7 @@ void PhysicsPanel::show()
 			}
 			model->addPhysicsObject(object);
 			canvas->setViewModel(model->toViewModel());
+			std::cout << object->getParticles().size() << std::endl;
 			//canvas->fitCamera(model->getBoundingBox());
 			//object->
 			//box, divideLength, constant);
@@ -60,8 +68,8 @@ void PhysicsPanel::show()
 		isUnderSimulation = !isUnderSimulation;
 	}
 	if (isUnderSimulation) {
-		const float timeStep = 0.03f;
-		model->getSolver()->simulate(1.25f, timeStep);
+		const float timeStep = 0.200f;
+		model->getSolver()->simulate(1.15f, timeStep);
 		canvas->setViewModel(model->toViewModel());
 	}
 	ImGui::End();
