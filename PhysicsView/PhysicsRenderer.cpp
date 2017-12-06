@@ -31,6 +31,10 @@ bool PhysicsRenderer::build()
 		return false;
 	}
 	normalTexture.create(Imagef(512, 512, 2));
+	if (!thicknessRenderer.build()) {
+		return false;
+	}
+	thicknessTexture.create(Imagef(512, 512, 3));
 	return true;
 }
 
@@ -51,7 +55,6 @@ void PhysicsRenderer::render(const int width, const int height)
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	bilateralFilter.render(depthTexture);
-	frameBuffer.unbind();
 
 	frameBuffer.setTexture(normalTexture);
 	glViewport(0, 0, normalTexture.getWidth(), normalTexture.getHeight());
@@ -60,10 +63,16 @@ void PhysicsRenderer::render(const int width, const int height)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	normalFilter.render(bluredDepthTexture, *camera);
 	normalTexture.unbind();
+
+	frameBuffer.setTexture(thicknessTexture);
+	thicknessTexture.bind();
+	thicknessRenderer.render(*camera, pointBuffer);
+	thicknessTexture.unbind();
 	frameBuffer.unbind();
 
+
 	glViewport(0, 0, width, height);
-	onScreenRenderer.render(normalTexture);
+	onScreenRenderer.render(thicknessTexture);
 	glFlush();
 	/*
 	glClearColor(0.0, 0.0, 1.0, 0.0);

@@ -20,7 +20,6 @@ std::string SSThicknessRenderer::getBuildinVertexShaderSource() const
 	stream
 		<< "#version 150" << std::endl
 		<< "in vec3 position;" << std::endl
-		<< "in int id;" << std::endl
 		<< "in float pointSize;" << std::endl
 		<< "uniform mat4 projectionMatrix;" << std::endl
 		<< "uniform mat4 modelviewMatrix;" << std::endl
@@ -59,7 +58,6 @@ void SSThicknessRenderer::findLocation()
 	shader.findUniformLocation("modelviewMatrix");
 
 	shader.findAttribLocation("position");
-	//shader.findAttribLocation("color");
 	shader.findAttribLocation("pointSize");
 }
 
@@ -87,7 +85,7 @@ void SSThicknessRenderer::render(const ICamera& camera, const PointBuffer& buffe
 	glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	glEnable(GL_POINT_SPRITE);
 
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_FALSE);
 
 	glUseProgram(shader.getId());
@@ -95,30 +93,31 @@ void SSThicknessRenderer::render(const ICamera& camera, const PointBuffer& buffe
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, &projectionMatrix[0][0]);
 	glUniformMatrix4fv(shader.getUniformLocation("modelviewMatrix"), 1, GL_FALSE, &modelviewMatrix[0][0]);
 
-	glVertexAttribPointer(shader.getAttribLocation("positions"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
+	glVertexAttribPointer(shader.getAttribLocation("position"), 3, GL_FLOAT, GL_FALSE, 0, positions.data());
 	glVertexAttribPointer(shader.getAttribLocation("pointSize"), 1, GL_FLOAT, GL_FALSE, 0, sizes.data());
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
 
 	glDrawArrays(GL_POINTS, 0, static_cast<GLsizei>(positions.size() / 3));
 
-	glDisableVertexAttribArray(2);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(0);
 
 	glBindFragDataLocation(shader.getId(), 0, "fragColor");
 
-	glEnable(GL_DEPTH_TEST);
-	glDisable(GL_BLEND);
+	//glEnable(GL_DEPTH_TEST);
 
+	assert(glGetError() == GL_NO_ERROR);
 
-	glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
-	glDisable(GL_POINT_SPRITE);
 
 	glDepthMask(GL_TRUE);
 
 
 	glUseProgram(0);
+	glDisable(GL_VERTEX_PROGRAM_POINT_SIZE);
+	glDisable(GL_POINT_SPRITE);
+
+	glDisable(GL_BLEND);
+
 }
