@@ -8,11 +8,15 @@
 #include "../../Crystal/Shader/OnScreenRenderer.h"
 #include "../../Crystal/Shader/FrameBuffer.h"
 #include "../../Crystal/Shader/DepthBuffer.h"
+#include "../../Crystal/Shader/CubeMapTextureObject.h"
 #include "../FluidRenderer/NormalFilter.h"
 #include "../FluidRenderer/ParticleDepthRenderer.h"
 #include "../FluidRenderer/BilateralFilter.h"
 #include "../FluidRenderer/SSThicknessRenderer.h"
 #include "../FluidRenderer/DeferredRenderer.h"
+#include "../FluidRenderer/SSReflectionRenderer.h"
+#include "../FluidRenderer/SSAbsorptionRenderer.h"
+#include "../FluidRenderer/FluidRenderer.h"
 
 namespace Crystal {
 	namespace UI {
@@ -42,6 +46,9 @@ private:
 	Shader::OnScreenRenderer onScreenRenderer;
 	Shader::SSThicknessRenderer thicknessRenderer;
 	Shader::DeferredRenderer deferredRenderer;
+	Shader::SSReflectionRenderer reflectionRenderer;
+	Shader::SSAbsorptionRenderer absorptionRenderer;
+	Shader::FluidRenderer fluidRenderer;
 	
 	Shader::DepthBuffer depthBuffer;
 	Shader::FrameBuffer frameBuffer;
@@ -50,6 +57,11 @@ private:
 	Shader::TextureObject normalTexture;
 	Shader::TextureObject thicknessTexture;
 	Shader::TextureObject shadedTexture;
+	Shader::TextureObject reflectionTexture;
+	Shader::TextureObject volumeTexture;
+	Shader::TextureObject fluidTexture;
+	Shader::TextureObject backgroundTexture;
+	Shader::CubeMapTextureObject cubeMapTexture;
 
 	Graphics::ICamera* camera;
 };

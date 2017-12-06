@@ -23,9 +23,9 @@ void PhysicsPanel::show()
 		ImGui::OpenPopup("Add");
 	}
 	if (ImGui::BeginPopup("Add")) {
-		static float point1[3] = { -10.0f, 1.0f, -10.0f };
+		static float point1[3] = { 0.0f, 1.0f, 0.0f };
 		ImGui::InputFloat3("Point1", point1);
-		static float point2[3] = { 10.0f, 10.0f, 10.0f };
+		static float point2[3] = { 20.0f, 10.0f, 20.0f };
 		ImGui::InputFloat3("Point2", point2);
 		static float divideLength = 1.0f;
 		ImGui::InputFloat("DivideLength", &divideLength);
@@ -34,7 +34,7 @@ void PhysicsPanel::show()
 		ImGui::InputFloat("Density", &density);
 		static float pressureCoe = 10000.0f;
 		ImGui::InputFloat("PressureCoe", &pressureCoe);
-		static float viscosityCoe = 100.0f;
+		static float viscosityCoe = 500.0f;
 		ImGui::InputFloat("ViscosityCoe", &viscosityCoe);
 		SPHConstant constant(density, pressureCoe, viscosityCoe, 0.0f, divideLength * 1.25);
 		if (ImGui::Button("OK")) {
@@ -48,7 +48,7 @@ void PhysicsPanel::show()
 			}
 			model->addPhysicsObject(object);
 			canvas->setViewModel(model->toViewModel());
-			canvas->fitCamera(model->getBoundingBox());
+			//canvas->fitCamera(model->getBoundingBox());
 			//object->
 			//box, divideLength, constant);
 			//world.add(object);

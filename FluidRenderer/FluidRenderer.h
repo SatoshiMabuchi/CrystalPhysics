@@ -5,92 +5,35 @@
 #include "../../Crystal/Shader/DepthTextureObject.h"
 #include "../../Crystal/Shader/ITextureObject.h"
 #include "../../Crystal/Shader/TextureObject.h"
-#include "FrameBuffer.h"
-#include "NormalFilter.h"
-#include "PointRenderer.h"
-#include "BilateralFilter.h"
-#include "SSAbsorptionRenderer.h"
-#include "DeferredRenderer.h"
-#include "OnScreenRenderer.h"
-#include "CubeMapTextureObject.h"
-#include "SSReflectionRenderer.h"
-#include "SSRefractionRenderer.h"
-#include "SkyBoxRenderer.h"
-#include "SSThicknessRenderer.h"
-#include "DepthBuffer.h"
+#include "../../Crystal/Shader/FrameBuffer.h"
 
 namespace Crystal {
 	namespace Shader {
 
-		class FluidRenderer
-		{
-		public:
-			void build(const int width, const int height);
+class FluidRenderer
+{
+public:
+	struct Textures
+	{
+		TextureObject surfaceTexture;
+		TextureObject reflectionTexture;
+		TextureObject absorptionTexture;
+		TextureObject backgroundTexture;
+	};
 
-			void render(const int width, const int height, const Crystal::Graphics::ICamera<float>& camera, const Crystal::Graphics::PointBuffer& buffer, const Graphics::PointLight<float>& light, const Graphics::Material& material, const CubeMapTextureObject& cubeMapTexture, const Graphics::EllipsoidBuffer& ellipsoidBuffer);
+	bool build();
 
-			void setSceneTexture(const TextureObject& texture) { this->sceneTexture = texture; }
+	void render(const Textures& textures);
 
-			ITextureObject* getDepthTexture() { return &depthTexture; }
+private:
+	std::string getBuiltinVertexShaderSource();
 
-			ITextureObject* getShadedTexture() { return &shadedTexture; }
+	std::string getBuiltinFragmentShaderSource();
 
-			ITextureObject* getBluredDepthTexture() { return &bluredDepthTexture; }
+	void findLocation();
 
-
-			ITextureObject* getThicknessTexture() { return &thicknessTexture; }
-
-			ITextureObject* getBluredThicknessTexture() { return &bluredThicknessTexture; }
-
-			ITextureObject* getVolumeTexture() { return &volumeTexture; }
-
-			ITextureObject* getNormalTexture() { return &normalTexture; }
-
-			ITextureObject* getFluidTexture() { return &fluidTexture; }
-
-			ITextureObject* getReflectionTexture() { return &reflectionTexture; }
-
-			ITextureObject* getSceneTexture() { return &sceneTexture; }
-
-
-		private:
-			ParticleDepthRenderer depthRenderer;
-			DepthBuffer depthBuffer;
-
-			FrameBuffer frameBuffer;
-			NormalFilter normalFilter;
-
-			SSThicknessRenderer thicknessRenderer;
-
-			BilateralFilter bilateralFilter;
-
-			SSAbsorptionRenderer absorptionRenderer;
-
-			DeferredRenderer deferredRenderer;
-			SSReflectionRenderer reflectionRenderer;
-			SSRefractionRenderer refractionRenderer;
-
-			DepthTextureObject depthTexture;
-			TextureObject sceneTexture;
-			TextureObject shadedTexture;
-			TextureObject bluredDepthTexture;
-			TextureObject normalTexture;
-			TextureObject thicknessTexture;
-			TextureObject bluredThicknessTexture;
-
-			TextureObject volumeTexture;
-			TextureObject reflectionTexture;
-			TextureObject fluidTexture;
-
-		private:
-			std::string getBuiltinVertexShaderSource();
-
-			std::string getBuiltinFragmentShaderSource();
-
-			void findLocation();
-
-			ShaderObject shader;
-		};
+	ShaderObject shader;
+};
 
 	}
 }
