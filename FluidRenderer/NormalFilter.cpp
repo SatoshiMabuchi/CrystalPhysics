@@ -118,7 +118,7 @@ void NormalFilter::render(const ITextureObject& texture, const ICamera& rendered
 	glUniform1f(shader.getUniformLocation("texelSizeH"), 1.0f / static_cast<float>(texture.getHeight()));
 
 	glUniformMatrix4fv(shader.getUniformLocation("projectionMatrix"), 1, GL_FALSE, &projectionmatrix[0][0]);
-	glVertexAttribPointer(shader.getAttribLocation("positions"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
+	glVertexAttribPointer(shader.getAttribLocation("position"), 2, GL_FLOAT, GL_FALSE, 0, positions.data());
 
 	glEnableVertexAttribArray(0);
 	glDrawArrays(GL_QUADS, 0, static_cast<GLsizei>(positions.size() / 2));

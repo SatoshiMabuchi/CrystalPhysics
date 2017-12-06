@@ -5,10 +5,12 @@
 #include "../../Crystal/UI/ViewModel.h"
 #include "../../Crystal/Shader/PointRenderer.h"
 #include "../../Crystal/Shader/DepthTextureObject.h"
+#include "../../Crystal/Shader/OnScreenRenderer.h"
+#include "../../Crystal/Shader/FrameBuffer.h"
+#include "../../Crystal/Shader/DepthBuffer.h"
+#include "../FluidRenderer/NormalFilter.h"
 #include "../FluidRenderer/ParticleDepthRenderer.h"
 #include "../FluidRenderer/BilateralFilter.h"
-#include "../../Crystal/Shader/OnScreenRenderer.h"
-#include "../../Crystal/Shader/DepthBuffer.h"
 
 namespace Crystal {
 	namespace UI {
@@ -36,6 +38,10 @@ private:
 	Shader::DepthTextureObject depthTexture;
 	Shader::OnScreenRenderer onScreenRenderer;
 	Shader::DepthBuffer depthBuffer;
+	Shader::FrameBuffer frameBuffer;
+	Shader::NormalFilter normalFilter;
+	Shader::TextureObject bluredDepthTexture;
+	Shader::TextureObject normalTexture;
 
 	Graphics::ICamera* camera;
 };
