@@ -44,6 +44,21 @@ void PhysicsPanel::show()
 		ImGui::EndPopup();
 	}
 
+	if (ImGui::Button("ExternalForce")) {
+		ImGui::OpenPopup("ExternalForce");
+	}
+	if (ImGui::BeginPopup("ExternalForce")) {
+		static glm::vec3 point1 = { 0.0f, -9.8f, 0.0f };
+		ImGui::InputFloat3("Force", &point1[0]);
+
+		if (ImGui::Button("OK")) {
+			model->getSolver()->setExternalForce(point1);
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::EndPopup();
+	}
+
+
 
 	if (ImGui::Button("Add")) {
 		ImGui::OpenPopup("Add");
