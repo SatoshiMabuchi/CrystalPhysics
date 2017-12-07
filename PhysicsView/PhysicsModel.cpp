@@ -11,7 +11,7 @@ PhysicsModel::PhysicsModel()
 {
 	solver = new STSPHSolver();
 	solver->setExternalForce(Vector3df(0.0, -9.8, 0.0));
-	solver->setBoundary(Box3d(Vector3df(-20.0, 0.0, 0.0), Vector3df(20, 100.0, 20.0)));
+	solver->setBoundary(Box3d(Vector3df(-100.0, 0.0, -10.0), Vector3df(100, 100.0, 10.0)));
 }
 
 void PhysicsModel::clear()

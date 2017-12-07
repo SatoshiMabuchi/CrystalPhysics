@@ -15,3 +15,6 @@
 /FluidRenderer/x64/Release
 /CrystalPhysics.VC.VC.opendb
 *.vspx
+/NewView
+/PhysicsTest/x64/Release
+/Physics

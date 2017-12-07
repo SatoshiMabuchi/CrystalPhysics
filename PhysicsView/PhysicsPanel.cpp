@@ -26,13 +26,32 @@ void PhysicsPanel::show()
 		canvas->setViewModel(model->toViewModel());
 	}
 
+	if (ImGui::Button("Boundary")) {
+		ImGui::OpenPopup("Boundary");
+	}
+	if (ImGui::BeginPopup("Boundary")) {
+		static float point1[3] = { -100.0f, 0.0f, -10.0f };
+		ImGui::InputFloat3("Point1", point1);
+		static float point2[3] = { 100.0f, 100.0f, 10.0f };
+		ImGui::InputFloat3("Point2", point2);
+
+		if (ImGui::Button("OK")) {
+			Box3d box(Vector3df( point1[0], point1[1], point1[2] ),
+				Vector3df(point2[0], point2[1], point2[2] ) );
+			model->getSolver()->setBoundary(box);
+			ImGui::CloseCurrentPopup();
+		}
+		ImGui::EndPopup();
+	}
+
+
 	if (ImGui::Button("Add")) {
 		ImGui::OpenPopup("Add");
 	}
 	if (ImGui::BeginPopup("Add")) {
-		static float point1[3] = { 0.0f, 1.0f, 0.0f };
+		static float point1[3] = { 0.0f, 1.0f, -10.0f };
 		ImGui::InputFloat3("Point1", point1);
-		static float point2[3] = { 20.0f, 10.0f, 20.0f };
+		static float point2[3] = { 20.0f, 10.0f, 10.0f };
 		ImGui::InputFloat3("Point2", point2);
 		static float divideLength = 1.0f;
 		ImGui::InputFloat("DivideLength", &divideLength);
