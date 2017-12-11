@@ -16,35 +16,32 @@ PhysicsModel::PhysicsModel()
 
 void PhysicsModel::clear()
 {
-	physicsObjects.clear();
+	//solver->getParticles();
 }
 
-void PhysicsModel::addPhysicsObject(PhysicsObject* object) {
-	solver->add(object);
-	physicsObjects.push_back(object);
+void PhysicsModel::addParticle(SPHParticle* particle) {
+	solver->add(particle);
 }
 
 ViewModel PhysicsModel::toViewModel() const
 {
 	ViewModel vm;
-	const auto& particleSystems = physicsObjects;
-	for (const auto& ps : particleSystems) {
-		const auto& particles = ps->getParticles();
-		for (auto p : particles) {
-			vm.add(p->getPosition(), ColorRGBAf(1,1,1,1), 1000.0f);
-		}
+	const auto& particles = solver->getParticles();
+	for (auto p : particles) {
+		vm.add(p->getPosition(), ColorRGBAf(1,1,1,1), 1000.0f);
 	}
 	return vm;
 }
 
 Box3d PhysicsModel::getBoundingBox() const
 {
-	if (physicsObjects.empty()) {
+	const auto& particles = solver->getParticles();
+	if (particles.empty()) {
 		return Box3d();
 	}
-	Box3d bb(physicsObjects.front()->getBoundingBox());
-	for (auto ps : physicsObjects) {
-		bb.add( ps->getBoundingBox() );
+	Box3d bb(particles.front()->getPosition());
+	for (auto p : particles) {
+		bb.add(p->getPosition());
 	}
 	return bb;
 }

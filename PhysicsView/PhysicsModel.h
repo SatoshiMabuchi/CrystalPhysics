@@ -1,11 +1,13 @@
 #pragma once
 
 #include "../../Crystal/UI/IModel.h"
-#include "../Physics/PhysicsObject.h"
+#include "../Physics/SPHParticle.h"
+#include "../Physics/STSPHSolver.h"
 
 namespace Crystal {
 	namespace Physics {
 		class ISPHSolver;
+		class ISPHParticle;
 	}
 
 	namespace UI {
@@ -17,9 +19,8 @@ public:
 
 	void clear();
 
-	void addPhysicsObject(Physics::PhysicsObject* object);
+	void addParticle(Physics::SPHParticle* object);
 
-	//std::list<ParticleSystemObject> getParticleSystems() const { return objects.getParticleSystems(); }
 	UI::ViewModel toViewModel() const override;
 
 	Math::Box3d getBoundingBox() const override;
@@ -27,8 +28,7 @@ public:
 	Physics::ISPHSolver* getSolver() { return solver; }
 
 private:
-	std::list<Physics::PhysicsObject*> physicsObjects;
-	Physics::ISPHSolver* solver;
+	Physics::STSPHSolver* solver;
 };
 	}
 }

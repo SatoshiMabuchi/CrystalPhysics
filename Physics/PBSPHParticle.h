@@ -16,8 +16,6 @@ namespace Crystal {
 class PBSPHParticle : public ISPHParticle
 {
 public:
-	PBSPHParticle();
-
 	PBSPHParticle(const Math::Vector3df& center, float radius, SPHConstant* constant);
 
 	void setKernel(SPHKernel* kernel) { this->kernel = kernel; }

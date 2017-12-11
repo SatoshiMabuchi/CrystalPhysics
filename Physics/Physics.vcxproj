@@ -30,7 +30,6 @@
     <ClInclude Include="PBSPHBoundarySolver.h" />
     <ClInclude Include="PBSPHParticle.h" />
     <ClInclude Include="PBSPHSolver.h" />
-    <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="STSPHSolver.h" />
     <ClInclude Include="SPHConstant.h" />
     <ClInclude Include="SPHKernel.h" />
@@ -47,7 +46,6 @@
     <ClCompile Include="PBSPHBoundarySolver.cpp" />
     <ClCompile Include="PBSPHParticle.cpp" />
     <ClCompile Include="PBSPHSolver.cpp" />
-    <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="STSPHSolver.cpp" />
     <ClCompile Include="SPHKernel.cpp" />
     <ClCompile Include="SPHParticle.cpp" />

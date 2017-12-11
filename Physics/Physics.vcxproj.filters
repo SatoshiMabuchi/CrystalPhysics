@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClInclude Include="SPHConstant.h" />
     <ClInclude Include="SPHKernel.h" />
-    <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="IndexedFinder.h" />
     <ClInclude Include="IndexedParticle.h" />
     <ClInclude Include="DFSPHSolver.h">
@@ -40,7 +39,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SPHKernel.cpp" />
-    <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="IndexedFinder.cpp" />
     <ClCompile Include="IndexedParticle.cpp" />
     <ClCompile Include="DFSPHSolver.cpp">

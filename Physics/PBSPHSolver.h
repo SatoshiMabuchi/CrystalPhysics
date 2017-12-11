@@ -17,11 +17,7 @@ public:
 	PBSPHSolver()
 	{}
 
-	explicit PBSPHSolver(const std::vector<PBSPHParticle*>& particles) :
-		particles(particles)
-	{}
-
-	void add(const PBSPHObject& object);
+	void add(PBSPHParticle* particle) { this->particles.push_back(particle); }
 
 	void simulate(const float dt, const float effectRadius, const float searchRadius, const int maxIter);
 

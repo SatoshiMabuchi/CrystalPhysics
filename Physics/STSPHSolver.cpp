@@ -10,16 +10,17 @@ using namespace Crystal::Physics;
 void STSPHSolver::clear()
 {
 	timeStep = 0;
-	objects.clear();
+	for (auto p : particles) {
+		delete p;
+	}
+	particles.clear();
 }
 
 void STSPHSolver::simulate(const float effectLength, const float timeStep)
 {
 	this->timeStep++;
 
-	const auto& particles = getParticles();
-
-	for (const auto& particle : particles) {
+	for (auto particle : particles) {
 		particle->init();
 	}
 
@@ -52,18 +53,15 @@ void STSPHSolver::simulate(const float effectLength, const float timeStep)
 		p2->solveViscosityForce(*p1);
 	}
 
-	for (const auto& object : objects) {
-		object->addExternalForce(externalForce);
+	for (auto p : particles) {
+		p->addExternalForce(externalForce);
 	}
 
 	BoundarySolver boundarySolver(timeStep, boundary);
 	boundarySolver.solve(particles);
 
-	for (const auto& object : objects) {
-		object->coordinate(timeStep);
-	}
 
-	for (const auto& object : objects) {
-		object->forwardTime(timeStep);
+	for (auto p : particles) {
+		p->forwardTime(timeStep);
 	}
 }

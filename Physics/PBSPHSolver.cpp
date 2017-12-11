@@ -29,14 +29,12 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius, const float
 	}
 	finder.createPairs();
 	const auto& pairs = finder.getPairs();
-	/*
 	for (auto p : pairs) {
-		auto p1 = p.getParticle1();
-		auto p2 = p.getParticle2();
+		auto p1 = static_cast<PBSPHParticle*>(p.getParticle1());
+		auto p2 = static_cast<PBSPHParticle*>(p.getParticle2());
 		p1->addNeighbor(p2);
 		p2->addNeighbor(p1);
 	}
-	*/
 
 	SPHKernel kernel(effectRadius);
 	for (auto p : particles) {

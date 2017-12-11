@@ -4,7 +4,9 @@
 
 #include "../../Crystal/Math/Box3d.h"
 #include "../../Crystal/UI/ICanvas.h"
-#include "../Physics/PhysicsObject.h"
+#include "../Physics/SPHConstant.h"
+#include "../Physics/ISPHParticle.h"
+#include "../Physics/SPHParticle.h"
 #include <iostream>
 
 using namespace Crystal::Math;
@@ -77,19 +79,19 @@ void PhysicsPanel::show()
 		ImGui::InputFloat("PressureCoe", &pressureCoe);
 		static float viscosityCoe = 500.0f;
 		ImGui::InputFloat("ViscosityCoe", &viscosityCoe);
-		SPHConstant constant(density, pressureCoe, viscosityCoe, 0.0f, divideLength * 1.25);
+		SPHConstant* constant = new SPHConstant(density, pressureCoe, viscosityCoe, 0.0f, divideLength * 1.25);
 		if (ImGui::Button("OK")) {
-			PhysicsObject* object = new PhysicsObject(constant);
 			for (auto x = point1[0]; x < point2[0]; x += divideLength) {
 				for (auto y = point1[1]; y < point2[1]; y += divideLength) {
 					for (auto z = point1[2]; z < point2[2]; z += divideLength) {
-						object->createParticle(Vector3df(x, y, z), Vector3df(0, 0, 0));
+						const Vector3df position(x, y, z);
+						auto p = new SPHParticle(position, constant->getEffectLength() / 1.25f / 2.0f, constant);
+						model->addParticle(p);
 					}
 				}
 			}
-			model->addPhysicsObject(object);
 			canvas->setViewModel(model->toViewModel());
-			std::cout << object->getParticles().size() << std::endl;
+			//std::cout << object->getParticles().size() << std::endl;
 			//canvas->fitCamera(model->getBoundingBox());
 			//object->
 			//box, divideLength, constant);
