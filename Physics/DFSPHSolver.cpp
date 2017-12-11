@@ -12,13 +12,13 @@ void DFSPHSolver::simulate(const float dt, const float effectLength)
 	for (const auto& particle : particles) {
 		particle->init();
 	}
+	/*
 
 	IndexedFinder algo(effectLength);
 	algo.add(particles);
 	algo.createPairs(particles);
 	auto& pairs = algo.getPairs();
 
-	/*
 
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {

@@ -24,8 +24,10 @@ void STSPHSolver::simulate(const float effectLength, const float timeStep)
 	}
 
 	IndexedFinder algo(effectLength);
-	algo.add(particles);
-	algo.createPairs(particles);
+	for (auto p : particles) {
+		algo.add(p);
+	}
+	algo.createPairs();
 	auto& pairs = algo.getPairs();
 
 #pragma omp parallel for

@@ -11,7 +11,7 @@ class ParticlePair
 public:
 	ParticlePair();
 
-	ParticlePair(SPHParticle* particle1, SPHParticle* particle2);
+	ParticlePair(ISPHParticle* particle1, ISPHParticle* particle2);
 
 	Math::Vector3df getDistanceVector() const;
 
@@ -19,13 +19,13 @@ public:
 
 	float getDistanceSquared() const;
 
-	SPHParticle* getParticle1() const { return particle1; }
+	ISPHParticle* getParticle1() const { return particle1; }
 
-	SPHParticle* getParticle2() const { return particle2; }
+	ISPHParticle* getParticle2() const { return particle2; }
 
 private:
-	SPHParticle* particle1;
-	SPHParticle* particle2;
+	ISPHParticle* particle1;
+	ISPHParticle* particle2;
 };
 
 	}

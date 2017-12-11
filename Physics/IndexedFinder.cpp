@@ -4,35 +4,16 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-void IndexedFinder::add(const std::vector<IndexedParticle>& particles)
+void IndexedFinder::add(ISPHParticle* particle)
 {
-	iparticles = particles;
-	for (auto& particle : iparticles) {
-		particle.setGridID(effectLength);
-	}
-	std::sort(iparticles.begin(), iparticles.end());
+	IndexedParticle ip(particle);
+	ip.setGridID(effectLength);
+	iparticles.push_back(ip);
 }
 
-
-void IndexedFinder::add(const std::vector<SPHParticle*>& particles)
+void IndexedFinder::createPairs()
 {
-	for (const auto& particle : particles) {
-		iparticles.push_back(IndexedParticle(particle));
-	}
-
-	for (auto& particle : iparticles) {
-		particle.setGridID(effectLength);
-	}
-
 	std::sort(iparticles.begin(), iparticles.end());
-}
-
-void IndexedFinder::createPairs(std::vector<SPHParticle*> particles)
-{
-	if (particles.empty()) {
-		return;
-	}
-
 	// optimization for quad core.
 	const int threads = 8;
 

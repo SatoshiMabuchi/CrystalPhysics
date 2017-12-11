@@ -14,7 +14,7 @@ public:
 		particle(nullptr)
 	{}
 
-	IndexedParticle(SPHParticle* particle) :
+	IndexedParticle(ISPHParticle* particle) :
 		particle(particle)
 	{
 	}
@@ -34,13 +34,13 @@ public:
 		return this->getGridID() < rhs.getGridID();
 	}
 
-	SPHParticle* getParticle() const { return particle; }
+	ISPHParticle* getParticle() const { return particle; }
 
 private:
 	static int toIdX(std::array<int, 3> index);
 
 private:
-	SPHParticle* particle;
+	ISPHParticle* particle;
 	int gridID;
 };
 
