@@ -25,6 +25,9 @@
     <ClInclude Include="DFSPHParticle.h">
       <Filter>Particle</Filter>
     </ClInclude>
+    <ClInclude Include="PBSPHParticle.h">
+      <Filter>PBSPH</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SPHKernel.cpp" />
@@ -50,6 +53,9 @@
     <ClCompile Include="DFSPHParticle.cpp">
       <Filter>Particle</Filter>
     </ClCompile>
+    <ClCompile Include="PBSPHParticle.cpp">
+      <Filter>PBSPH</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Solver">
@@ -57,6 +63,9 @@
     </Filter>
     <Filter Include="Particle">
       <UniqueIdentifier>{17145271-8b6c-4da3-8403-2b10582a9f65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PBSPH">
+      <UniqueIdentifier>{0eb4822d-2c61-4b72-8ef9-62eef8fce4b3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
