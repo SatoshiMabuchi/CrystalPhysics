@@ -18,10 +18,13 @@ void DFSPHSolver::simulate(const float dt, const float effectLength)
 	algo.createPairs(particles);
 	auto& pairs = algo.getPairs();
 
+	/*
+
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
 		pairs[i].solveDensity();
 	}
+	*/
 
 	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
 		particles[i]->addSelfDensity();

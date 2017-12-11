@@ -19,20 +19,6 @@ public:
 
 	float getDistanceSquared() const;
 
-	float getPressure() const;
-
-	void solveDensity();
-
-	void solvePressureForce();
-
-	void solveViscosityForce();
-
-	void solveSurfaceTension();
-
-	Math::Vector3df getVelocityDiff() const;
-
-	bool isValid() const;
-
 	SPHParticle* getParticle1() const { return particle1; }
 
 	SPHParticle* getParticle2() const { return particle2; }

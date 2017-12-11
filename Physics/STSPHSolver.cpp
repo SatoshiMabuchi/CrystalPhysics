@@ -30,7 +30,10 @@ void STSPHSolver::simulate(const float effectLength, const float timeStep)
 
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
-		pairs[i].solveDensity();
+		auto p1 = static_cast<SPHParticle*>(pairs[i].getParticle1());
+		auto p2 = static_cast<SPHParticle*>(pairs[i].getParticle2());
+		p1->addDensity(*p2);
+		p2->addDensity(*p1);
 	}
 
 	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
@@ -39,8 +42,12 @@ void STSPHSolver::simulate(const float effectLength, const float timeStep)
 
 #pragma omp parallel for
 	for (int i = 0; i < static_cast<int>(pairs.size()); ++i) {
-		pairs[i].solvePressureForce();
-		pairs[i].solveViscosityForce();
+		auto p1 = static_cast<SPHParticle*>(pairs[i].getParticle1());
+		auto p2 = static_cast<SPHParticle*>(pairs[i].getParticle2());
+		p1->solvePressureForce(*p2);
+		p2->solvePressureForce(*p1);
+		p1->solveViscosityForce(*p2);
+		p2->solveViscosityForce(*p1);
 	}
 
 	for (const auto& object : objects) {
