@@ -29,6 +29,10 @@
     <ClInclude Include="DFSPHParticle.h">
       <Filter>DFSPH</Filter>
     </ClInclude>
+    <ClInclude Include="PBSPHSolver.h">
+      <Filter>PBSPH</Filter>
+    </ClInclude>
+    <ClInclude Include="ISPHParticle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SPHKernel.cpp" />
@@ -57,6 +61,9 @@
     </ClCompile>
     <ClCompile Include="DFSPHParticle.cpp">
       <Filter>DFSPH</Filter>
+    </ClCompile>
+    <ClCompile Include="PBSPHSolver.cpp">
+      <Filter>PBSPH</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

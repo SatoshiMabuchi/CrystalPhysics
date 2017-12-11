@@ -7,14 +7,13 @@
 
 #include "../../Crystal/Math/Vector3d.h"
 #include "SPHKernel.h"
-
-#include "../../Crystal/Util/UnCopyable.h"
+#include "ISPHParticle.h"
 #include "SPHConstant.h"
 
 namespace Crystal {
 	namespace Physics {
 
-class PBSPHParticle : private UnCopyable
+class PBSPHParticle : public ISPHParticle
 {
 public:
 	PBSPHParticle();
@@ -118,9 +117,6 @@ public:
 
 	Math::Vector3df getPosition() const { return position; }
 
-	float getDiameter() const { return radius * 2.0f; }
-
-	float getRadius() const { return radius; }
 
 private:
 	Math::Vector3df getConstraintGradient(const PBSPHParticle& rhs);
@@ -136,9 +132,6 @@ private:
 	float densityConstraint;
 
 	std::list<PBSPHParticle*> neighbors;
-	float radius;
-	float density;
-	Math::Vector3df position;
 	Math::Vector3df force;
 	Math::Vector3df velocity;
 	Math::Vector3df normal;

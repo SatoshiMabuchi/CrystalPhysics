@@ -5,11 +5,11 @@ using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
 SPHParticle::SPHParticle(const Vector3df& position, const float radius, SPHConstant* constant) :
-	position(position),
-	radius(radius),
-	constant(constant),
-	density(constant->getDensity())
-{}
+	ISPHParticle(position, radius),
+	constant(constant)	
+{
+	density = (constant->getDensity());
+}
 
 void SPHParticle::init()
 {

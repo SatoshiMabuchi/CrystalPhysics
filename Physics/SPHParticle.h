@@ -7,12 +7,13 @@
 
 #include "../../Crystal/Math/Vector3d.h"
 #include "../../Crystal/Util/UnCopyable.h"
+#include "ISPHParticle.h"
 #include "SPHConstant.h"
 
 namespace Crystal {
 	namespace Physics {
 
-class SPHParticle : private UnCopyable
+class SPHParticle : public ISPHParticle
 {
 public:
 	SPHParticle(const Math::Vector3df& center, const float radius, SPHConstant* constant);
@@ -78,12 +79,9 @@ public:
 	void move(const Math::Vector3df& v);
 
 private:
-	Math::Vector3df position;
 	Math::Vector3df force;
 	Math::Vector3df velocity;
 	Math::Vector3df normal;
-	float density;
-	float radius;
 	SPHConstant* constant;
 };
 

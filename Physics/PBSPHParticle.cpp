@@ -5,14 +5,10 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-PBSPHParticle::PBSPHParticle() :
-	constant(nullptr)
-{
-}
 
 PBSPHParticle::PBSPHParticle(const Vector3df& center, float radius, SPHConstant* constant) :
-	constant(constant),
-	radius(radius)
+	ISPHParticle(center, radius),
+	constant(constant)
 {
 	this->density = constant->getDensity();
 }
