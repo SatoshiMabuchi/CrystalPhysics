@@ -8,25 +8,26 @@
     <ClInclude Include="IndexedFinder.h" />
     <ClInclude Include="IndexedParticle.h" />
     <ClInclude Include="DFSPHSolver.h">
-      <Filter>Solver</Filter>
-    </ClInclude>
-    <ClInclude Include="STSPHSolver.h">
-      <Filter>Solver</Filter>
-    </ClInclude>
-    <ClInclude Include="ISPHSolver.h">
-      <Filter>Solver</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticlePair.h">
-      <Filter>Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="SPHParticle.h">
-      <Filter>Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="DFSPHParticle.h">
-      <Filter>Particle</Filter>
+      <Filter>DFSPH</Filter>
     </ClInclude>
     <ClInclude Include="PBSPHParticle.h">
       <Filter>PBSPH</Filter>
+    </ClInclude>
+    <ClInclude Include="PBSPHBoundarySolver.h">
+      <Filter>PBSPH</Filter>
+    </ClInclude>
+    <ClInclude Include="SPHParticle.h">
+      <Filter>STSPH</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticlePair.h">
+      <Filter>STSPH</Filter>
+    </ClInclude>
+    <ClInclude Include="ISPHSolver.h" />
+    <ClInclude Include="STSPHSolver.h">
+      <Filter>STSPH</Filter>
+    </ClInclude>
+    <ClInclude Include="DFSPHParticle.h">
+      <Filter>DFSPH</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -36,36 +37,37 @@
     <ClCompile Include="IndexedFinder.cpp" />
     <ClCompile Include="IndexedParticle.cpp" />
     <ClCompile Include="DFSPHSolver.cpp">
-      <Filter>Solver</Filter>
-    </ClCompile>
-    <ClCompile Include="STSPHSolver.cpp">
-      <Filter>Solver</Filter>
-    </ClCompile>
-    <ClCompile Include="ISPHSolver.cpp">
-      <Filter>Solver</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticlePair.cpp">
-      <Filter>Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="SPHParticle.cpp">
-      <Filter>Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="DFSPHParticle.cpp">
-      <Filter>Particle</Filter>
+      <Filter>DFSPH</Filter>
     </ClCompile>
     <ClCompile Include="PBSPHParticle.cpp">
       <Filter>PBSPH</Filter>
     </ClCompile>
+    <ClCompile Include="PBSPHBoundarySolver.cpp">
+      <Filter>PBSPH</Filter>
+    </ClCompile>
+    <ClCompile Include="SPHParticle.cpp">
+      <Filter>STSPH</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlePair.cpp">
+      <Filter>STSPH</Filter>
+    </ClCompile>
+    <ClCompile Include="ISPHSolver.cpp" />
+    <ClCompile Include="STSPHSolver.cpp">
+      <Filter>STSPH</Filter>
+    </ClCompile>
+    <ClCompile Include="DFSPHParticle.cpp">
+      <Filter>DFSPH</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Solver">
-      <UniqueIdentifier>{450aecba-d1e0-4714-813f-a323cfc1d522}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle">
-      <UniqueIdentifier>{17145271-8b6c-4da3-8403-2b10582a9f65}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PBSPH">
       <UniqueIdentifier>{0eb4822d-2c61-4b72-8ef9-62eef8fce4b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="STSPH">
+      <UniqueIdentifier>{e8a7e62a-3455-42d0-b17d-98f54fd9a5f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DFSPH">
+      <UniqueIdentifier>{450aecba-d1e0-4714-813f-a323cfc1d522}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -120,6 +120,8 @@ public:
 
 	float getDiameter() const { return radius * 2.0f; }
 
+	float getRadius() const { return radius; }
+
 private:
 	Math::Vector3df getConstraintGradient(const PBSPHParticle& rhs);
 

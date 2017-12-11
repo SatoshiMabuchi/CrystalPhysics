@@ -26,6 +26,7 @@
     <ClInclude Include="IndexedParticle.h" />
     <ClInclude Include="ISPHSolver.h" />
     <ClInclude Include="ParticlePair.h" />
+    <ClInclude Include="PBSPHBoundarySolver.h" />
     <ClInclude Include="PBSPHParticle.h" />
     <ClInclude Include="PhysicsObject.h" />
     <ClInclude Include="STSPHSolver.h" />
@@ -41,6 +42,7 @@
     <ClCompile Include="IndexedParticle.cpp" />
     <ClCompile Include="ISPHSolver.cpp" />
     <ClCompile Include="ParticlePair.cpp" />
+    <ClCompile Include="PBSPHBoundarySolver.cpp" />
     <ClCompile Include="PBSPHParticle.cpp" />
     <ClCompile Include="PhysicsObject.cpp" />
     <ClCompile Include="STSPHSolver.cpp" />
