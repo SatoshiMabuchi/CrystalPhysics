@@ -67,7 +67,7 @@ void PhysicsPanel::show()
 		ImGui::OpenPopup("Add");
 	}
 	if (ImGui::BeginPopup("Add")) {
-		static float point1[3] = { 0.0f, 0.0f, -10.0f };
+		static float point1[3] = { 0.0f, 1.0f, -10.0f };
 		ImGui::InputFloat3("Point1", point1);
 		static float point2[3] = { 20.0f, 10.0f, 10.0f };
 		ImGui::InputFloat3("Point2", point2);
@@ -105,8 +105,8 @@ void PhysicsPanel::show()
 		isUnderSimulation = !isUnderSimulation;
 	}
 	if (isUnderSimulation) {
-		const float timeStep = 0.20f;
-		model->getSolver()->simulate(timeStep, 1.25f, 1.35f, 3);
+		const float timeStep = 0.05f;
+		model->getSolver()->simulate(timeStep, 1.5f, 1.5f, 3);
 		canvas->setViewModel(model->toViewModel());
 	}
 	ImGui::End();

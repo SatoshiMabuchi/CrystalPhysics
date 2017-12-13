@@ -7,7 +7,7 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-void PBSPHSolver::simulate(const float dt, const float effectRadius, const float searchRadius, const int maxIter)
+void PBSPHSolver::simulate(const float dt, const float effectLength, const float searchLength, const int maxIter)
 {
 	for (auto p : particles) {
 		p->init();
@@ -21,7 +21,7 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius, const float
 		p->predictPosition(dt);
 	}
 
-	IndexedFinder finder(searchRadius);
+	IndexedFinder finder(searchLength);
 	for (auto p : particles) {
 		finder.add(p);
 	}
@@ -34,7 +34,7 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius, const float
 		p2->addNeighbor(p1);
 	}
 
-	SPHKernel kernel(effectRadius);
+	SPHKernel kernel(effectLength);
 	for (auto p : particles) {
 		p->setKernel(&kernel);
 	}
@@ -64,7 +64,6 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius, const float
 			p->solvePositionCorrection();
 		}
 		//boundarySolver.solveCorrectPosition(particles);
-#pragma omp parallel for
 		for (int i = 0; i < particles.size(); ++i) {
 			const auto p = particles[i];
 			p->updatePredictPosition(dt);

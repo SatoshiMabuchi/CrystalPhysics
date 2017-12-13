@@ -62,7 +62,7 @@ void PBSPHParticle::addExternalForce(const Vector3df& externalForce)
 void PBSPHParticle::solveViscosity()
 {
 	viscVelocity = Vector3df(0, 0, 0);
-	const auto scale = 0.1f;
+	const auto scale = 0.01f;
 	for (auto n : neighbors) {
 		viscVelocity += scale * solveViscosity(*n);
 	}
@@ -191,7 +191,9 @@ void PBSPHParticle::updatePredictPosition(const float dt)
 void PBSPHParticle::updateVelocity(const float dt)
 {
 	this->velocity = (this->position - this->prevPosition) / dt;
-	this->velocity *= 0.99;
+	if (neighbors.empty()) {
+		this->velocity *= 0.98;
+	}
 }
 
 void PBSPHParticle::updatePosition()
@@ -216,7 +218,7 @@ float PBSPHParticle::getDensityConstraintCorrection(const PBSPHParticle& rhs) co
 {
 	const float k = 0.1f;
 	const float n = 4;
-	const float dq = 0.1f * constant->getEffectLength();
+	const float dq = 0.3f * constant->getEffectLength();
 	const auto w1 = kernel->getCubicSpline(glm::length( getDiff(rhs) ));
 	const auto w2 = kernel->getCubicSpline(dq);
 	return -k * std::pow(w1 / w2, n);
