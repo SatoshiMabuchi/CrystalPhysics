@@ -26,9 +26,9 @@ public:
 
 	void addNeighbor(PBSPHParticle* n) { neighbors.push_back(n); }
 
-	void setNeighbors(const std::list<PBSPHParticle*>& neighbors);
+	//void setNeighbors(const std::list<PBSPHParticle*>& neighbors);
 
-	std::list<PBSPHParticle*> getNeighbors() const { return neighbors; }
+	std::vector<PBSPHParticle*> getNeighbors() const { return neighbors; }
 
 	float getDensityRatio() const;
 
@@ -129,7 +129,7 @@ private:
 
 	float densityConstraint;
 
-	std::list<PBSPHParticle*> neighbors;
+	std::vector<PBSPHParticle*> neighbors;
 	Math::Vector3df force;
 	Math::Vector3df velocity;
 	Math::Vector3df normal;

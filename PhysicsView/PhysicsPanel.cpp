@@ -8,6 +8,7 @@
 #include "../Physics/ISPHParticle.h"
 #include "../Physics/SPHParticle.h"
 #include "../Physics/PBSPHParticle.h"
+#include "../Physics/SPHKernelCache.h"
 #include <iostream>
 
 using namespace Crystal::Math;
@@ -83,7 +84,6 @@ void PhysicsPanel::show()
 		static float viscosityCoe = 500.0f;
 		ImGui::InputFloat("ViscosityCoe", &viscosityCoe);
 
-
 		SPHConstant* constant = new SPHConstant(density, pressureCoe, viscosityCoe, 0.0f, effectLength);
 		if (ImGui::Button("OK")) {
 			for (auto x = point1[0]; x < point2[0]; x += divideLength) {
@@ -95,6 +95,8 @@ void PhysicsPanel::show()
 					}
 				}
 			}
+			SPHKernelCache::getInstance()->build(effectLength);
+
 			canvas->setViewModel(model->toViewModel());
 			//std::cout << object->getParticles().size() << std::endl;
 			//canvas->fitCamera(model->getBoundingBox());

@@ -36,6 +36,7 @@
     <ClInclude Include="BoundarySolver.h">
       <Filter>STSPH</Filter>
     </ClInclude>
+    <ClInclude Include="SPHKernelCache.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SPHKernel.cpp" />
@@ -69,6 +70,7 @@
     <ClCompile Include="BoundarySolver.cpp">
       <Filter>STSPH</Filter>
     </ClCompile>
+    <ClCompile Include="SPHKernelCache.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="PBSPH">

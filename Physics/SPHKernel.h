@@ -26,6 +26,8 @@ public:
 
 	Math::Vector3df getSpikyKernelGradient(const Math::Vector3df& distanceVector);
 
+	//float getSpikyKernelGradientWeight(const Vector3df& distanceVector, const float effectLength);
+
 	Math::Vector3df getSpikyKernelGradient(const Math::Vector3df& distanceVector, const float effectLength);
 
 	float getViscosityKernelLaplacian(const float distance, const float effectLength);

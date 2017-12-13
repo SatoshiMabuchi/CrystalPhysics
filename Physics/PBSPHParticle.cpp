@@ -13,12 +13,13 @@ PBSPHParticle::PBSPHParticle(const Vector3df& center, float radius, SPHConstant*
 	this->density = constant->getDensity();
 }
 
+/*
 void PBSPHParticle::setNeighbors(const std::list<PBSPHParticle*>& neighbors)
 {
 	this->neighbors = neighbors;
 	this->neighbors.remove(this);
 }
-
+*/
 void PBSPHParticle::init()
 {
 	neighbors.clear();
@@ -34,7 +35,8 @@ float PBSPHParticle::getDensityRatio() const
 
 float PBSPHParticle::getMass() const
 {
-	return constant->getDensity() * std::pow(getDiameter(), 3);
+	const auto diameter = radius * 2.0;
+	return constant->getDensity() * diameter * diameter * diameter;
 }
 
 float PBSPHParticle::getVolume() const
@@ -75,10 +77,12 @@ void PBSPHParticle::addSelfDensity()
 	this->addDensity(kernel->getPoly6Kernel(0.0, kernel->getEffectLength()) * this->getMass());
 }
 
+#include "SPHKernelCache.h"
+
 void PBSPHParticle::addDensity(const PBSPHParticle& rhs)
 {
 	const float distance = glm::distance( this->getPosition(), rhs.getPosition());
-	this->addDensity(kernel->getCubicSpline(distance, kernel->getEffectLength()) * rhs.getMass());
+	this->addDensity(SPHKernelCache::getInstance()->getCubicSpline(distance / kernel->getEffectLength()) * rhs.getMass());
 }
 
 void PBSPHParticle::addDensity(const float distance, const float mass)
@@ -156,6 +160,7 @@ Vector3df PBSPHParticle::getPositionCorrection(const PBSPHParticle& rhs)
 {
 	const auto& distanceVector = getDiff(rhs);
 	const auto correction = getDensityConstraintCorrection(rhs);
+	//const auto weight = SPHKernelCache::getInstance()->getCubicSpline(distance / kerne
 	return 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint + correction) * kernel->getSpikyKernelGradient(distanceVector, kernel->getEffectLength());
 }
 
