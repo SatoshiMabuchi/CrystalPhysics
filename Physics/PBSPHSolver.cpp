@@ -7,15 +7,17 @@
 using namespace Crystal::Math;
 using namespace Crystal::Physics;
 
-void PBSPHSolver::simulate(const float effectLength, const float searchLength, const int maxIter)
+void PBSPHSolver::simulate(const float dt, const float effectLength, const float searchLength, const int maxIter)
 {
+	/*
 	float maxVelocity = 0.0;
 	for (auto p : particles) {
 		maxVelocity = std::max<float>(maxVelocity, glm::length(p->getVelocity()));
 	}
 	auto dt = 0.2 * (1.0f / maxVelocity);
-	dt = std::max<float>(dt, 0.01);
+	dt = std::max<float>(dt, 0.02);
 	dt = std::min<float>(dt, 0.2);
+	*/
 
 	for (auto p : particles) {
 		p->init();

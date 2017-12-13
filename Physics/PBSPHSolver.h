@@ -19,7 +19,7 @@ public:
 
 	void add(PBSPHParticle* particle) { this->particles.push_back(particle); }
 
-	void simulate(const float effectRadius, const float searchRadius, const int maxIter);
+	void simulate(const float dt,const float effectRadius, const float searchRadius, const int maxIter);
 
 	void setBoundary(const Math::Box3d& boundary) { this->boundary = boundary; }
 
