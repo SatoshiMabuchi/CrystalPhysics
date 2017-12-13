@@ -40,6 +40,8 @@ public:
 
 	float getCubicSpline(const Math::Vector3df& v, const float effectLength);
 
+	float getEffectLength() const { return effectLength; }
+
 private:
 	float effectLength;
 	float poly6KernelConstant;

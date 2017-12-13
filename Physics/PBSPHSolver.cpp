@@ -13,7 +13,6 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius, const float
 		p->init();
 	}
 
-	//Box3d<float> box(Vector3d<float>(-10, 0, -10), Vector3d<float>(10, 10, 10));
 	PBSPHBoundarySolver boundarySolver(boundary);
 	boundarySolver.solveForce(particles, dt);
 
@@ -21,7 +20,6 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius, const float
 		p->addExternalForce(externalForce);
 		p->predictPosition(dt);
 	}
-
 
 	IndexedFinder finder(searchRadius);
 	for (auto p : particles) {
@@ -79,10 +77,11 @@ void PBSPHSolver::simulate(const float dt, const float effectRadius, const float
 	}
 	*/
 
+	//boundarySolver.solveViscosity(particles);
+
 	for (auto p : particles) {
 		p->updateVelocity(dt);
 		p->solveViscosity();
-		//boundarySolver.solveViscosity(particles);
 		p->updateViscosity();
 		p->updatePosition();
 		//	p->integrate(dt);

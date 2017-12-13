@@ -1,6 +1,6 @@
 #include "PhysicsModel.h"
-#include "../Physics/SPHParticle.h"
-#include "../Physics/STSPHSolver.h"
+#include "../Physics/PBSPHParticle.h"
+#include "../Physics/PBSPHSolver.h"
 
 using namespace Crystal::Math;
 using namespace Crystal::Graphics;
@@ -9,7 +9,7 @@ using namespace Crystal::Physics;
 
 PhysicsModel::PhysicsModel()
 {
-	solver = new STSPHSolver();
+	solver = new PBSPHSolver();
 	solver->setExternalForce(Vector3df(0.0, -9.8, 0.0));
 	solver->setBoundary(Box3d(Vector3df(-100.0, 0.0, -10.0), Vector3df(100, 100.0, 10.0)));
 }
@@ -17,10 +17,6 @@ PhysicsModel::PhysicsModel()
 void PhysicsModel::clear()
 {
 	//solver->getParticles();
-}
-
-void PhysicsModel::addParticle(SPHParticle* particle) {
-	solver->add(particle);
 }
 
 ViewModel PhysicsModel::toViewModel() const

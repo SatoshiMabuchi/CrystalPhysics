@@ -2,7 +2,7 @@
 
 #include "../../Crystal/UI/IModel.h"
 #include "../Physics/SPHParticle.h"
-#include "../Physics/STSPHSolver.h"
+#include "../Physics/PBSPHSolver.h"
 
 namespace Crystal {
 	namespace Physics {
@@ -25,10 +25,10 @@ public:
 
 	Math::Box3d getBoundingBox() const override;
 
-	Physics::ISPHSolver* getSolver() { return solver; }
+	Physics::PBSPHSolver* getSolver() { return solver; }
 
 private:
-	Physics::STSPHSolver* solver;
+	Physics::PBSPHSolver* solver;
 };
 	}
 }

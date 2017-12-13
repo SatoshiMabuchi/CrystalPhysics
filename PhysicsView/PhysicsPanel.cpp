@@ -7,6 +7,7 @@
 #include "../Physics/SPHConstant.h"
 #include "../Physics/ISPHParticle.h"
 #include "../Physics/SPHParticle.h"
+#include "../Physics/PBSPHParticle.h"
 #include <iostream>
 
 using namespace Crystal::Math;
@@ -66,14 +67,14 @@ void PhysicsPanel::show()
 		ImGui::OpenPopup("Add");
 	}
 	if (ImGui::BeginPopup("Add")) {
-		static float point1[3] = { 0.0f, 1.0f, -10.0f };
+		static float point1[3] = { 0.0f, 0.0f, -10.0f };
 		ImGui::InputFloat3("Point1", point1);
 		static float point2[3] = { 20.0f, 10.0f, 10.0f };
 		ImGui::InputFloat3("Point2", point2);
 		static float divideLength = 1.0f;
 		ImGui::InputFloat("DivideLength", &divideLength);
 
-		static float density = 1000.0f;
+		static float density = 1.0f;
 		ImGui::InputFloat("Density", &density);
 		static float pressureCoe = 10000.0f;
 		ImGui::InputFloat("PressureCoe", &pressureCoe);
@@ -85,8 +86,8 @@ void PhysicsPanel::show()
 				for (auto y = point1[1]; y < point2[1]; y += divideLength) {
 					for (auto z = point1[2]; z < point2[2]; z += divideLength) {
 						const Vector3df position(x, y, z);
-						auto p = new SPHParticle(position, constant->getEffectLength() / 1.25f / 2.0f, constant);
-						model->addParticle(p);
+						auto p = new PBSPHParticle(position, constant->getEffectLength() / 1.25f / 2.0f, constant);
+						model->getSolver()->add(p);
 					}
 				}
 			}
@@ -104,8 +105,8 @@ void PhysicsPanel::show()
 		isUnderSimulation = !isUnderSimulation;
 	}
 	if (isUnderSimulation) {
-		const float timeStep = 0.200f;
-		model->getSolver()->simulate(1.15f, timeStep);
+		const float timeStep = 0.20f;
+		model->getSolver()->simulate(timeStep, 1.25f, 1.35f, 3);
 		canvas->setViewModel(model->toViewModel());
 	}
 	ImGui::End();

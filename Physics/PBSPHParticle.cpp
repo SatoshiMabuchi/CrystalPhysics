@@ -62,7 +62,7 @@ void PBSPHParticle::addExternalForce(const Vector3df& externalForce)
 void PBSPHParticle::solveViscosity()
 {
 	viscVelocity = Vector3df(0, 0, 0);
-	const auto scale = 0.001f;
+	const auto scale = 0.1f;
 	for (auto n : neighbors) {
 		viscVelocity += scale * solveViscosity(*n);
 	}
@@ -72,18 +72,18 @@ void PBSPHParticle::solveViscosity()
 
 void PBSPHParticle::addSelfDensity()
 {
-	this->addDensity(kernel->getPoly6Kernel2(0.0) * this->getMass());
+	this->addDensity(kernel->getPoly6Kernel(0.0, kernel->getEffectLength()) * this->getMass());
 }
 
 void PBSPHParticle::addDensity(const PBSPHParticle& rhs)
 {
-	const float distanceSquared = ::getDistanceSquared( this->getPosition(), rhs.getPosition());
-	this->addDensity(kernel->getPoly6Kernel2(distanceSquared) * rhs.getMass());
+	const float distance = glm::distance( this->getPosition(), rhs.getPosition());
+	this->addDensity(kernel->getCubicSpline(distance, kernel->getEffectLength()) * rhs.getMass());
 }
 
 void PBSPHParticle::addDensity(const float distance, const float mass)
 {
-	this->addDensity(kernel->getPoly6Kernel(distance) * mass);
+	this->addDensity(kernel->getCubicSpline(distance, kernel->getEffectLength()) * mass);
 }
 
 
@@ -111,14 +111,15 @@ void PBSPHParticle::addConstrantGradient(const Vector3df& distanceVector)
 {
 	if (glm::length(distanceVector) > 1.0e-3) {
 		this->constraintGrad +=
-			getMass() * 1.0f / this->constant->getDensity() * kernel->getSpikyKernelGradient(distanceVector);
+			getMass() / constant->getDensity() * kernel->getSpikyKernelGradient(distanceVector, kernel->getEffectLength());
 	}
 }
 
 Vector3df PBSPHParticle::getConstraintGradient(const PBSPHParticle& rhs)
 {
 	const auto& distanceVector = getDiff(rhs);
-	return getMass() * 1.0f / this->constant->getDensity() * kernel->getSpikyKernelGradient(distanceVector);
+	//const auto constraint = density / this->constant->getDensity() - 1.0f;
+	return rhs.getMass() / constant->getDensity() * kernel->getSpikyKernelGradient(distanceVector, kernel->getEffectLength());
 }
 
 Vector3df PBSPHParticle::solveBoundaryDensityConstraint(const Vector3df& pos)
@@ -138,7 +139,7 @@ void PBSPHParticle::solveDensityConstraint()
 		}
 	}
 	//auto sum = this->constraintGrad.getLengthSquared();
-	sum += 1.0e-3f;
+	sum += 1.0e-9f;
 	this->densityConstraint = -c / sum;
 }
 
@@ -154,8 +155,8 @@ void PBSPHParticle::solvePositionCorrection()
 Vector3df PBSPHParticle::getPositionCorrection(const PBSPHParticle& rhs)
 {
 	const auto& distanceVector = getDiff(rhs);
-	const auto densityCorrection = 0.0f;//getDensityConstraintCorrection(rhs);
-	return getMass() * 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint + densityCorrection) * kernel->getSpikyKernelGradient(distanceVector);
+	const auto correction = getDensityConstraintCorrection(rhs);
+	return 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint + correction) * kernel->getSpikyKernelGradient(distanceVector, kernel->getEffectLength());
 }
 
 void PBSPHParticle::solveDensity()
@@ -171,14 +172,14 @@ Vector3df PBSPHParticle::solveViscosity(const PBSPHParticle& rhs)
 {
 	const auto& velocityDiff = (rhs.velocity - this->velocity);
 	const auto distance = glm::distance( getPosition(), rhs.getPosition());
-	const auto weight = kernel->getPoly6Kernel(distance);
+	const auto weight = kernel->getCubicSpline(distance, kernel->getEffectLength());
 	return velocityDiff * weight;
 }
 
 void PBSPHParticle::solveViscosity(const float distance)
 {
 	const auto& velocityDiff = (-this->velocity);
-	const auto weight = kernel->getPoly6Kernel(distance);
+	const auto weight = kernel->getCubicSpline(distance, kernel->getEffectLength());
 	this->viscVelocity += 0.1f * velocityDiff * weight;
 }
 
@@ -190,6 +191,7 @@ void PBSPHParticle::updatePredictPosition(const float dt)
 void PBSPHParticle::updateVelocity(const float dt)
 {
 	this->velocity = (this->position - this->prevPosition) / dt;
+	this->velocity *= 0.99;
 }
 
 void PBSPHParticle::updatePosition()
@@ -215,8 +217,8 @@ float PBSPHParticle::getDensityConstraintCorrection(const PBSPHParticle& rhs) co
 	const float k = 0.1f;
 	const float n = 4;
 	const float dq = 0.1f * constant->getEffectLength();
-	const auto w1 = kernel->getPoly6Kernel(glm::length( getDiff(rhs) ));
-	const auto w2 = kernel->getPoly6Kernel(dq);
+	const auto w1 = kernel->getCubicSpline(glm::length( getDiff(rhs) ));
+	const auto w2 = kernel->getCubicSpline(dq);
 	return -k * std::pow(w1 / w2, n);
 }
 

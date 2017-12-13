@@ -25,6 +25,8 @@ public:
 
 	void setExternalForce(const Math::Vector3df& force) { this->externalForce = force; }
 
+	std::vector<PBSPHParticle*> getParticles() const { return particles; }
+
 private:
 	std::vector<PBSPHParticle*> particles;
 	Math::Box3d boundary;

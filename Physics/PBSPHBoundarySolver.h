@@ -19,6 +19,8 @@ public:
 
 	void solveConstraintGradient(const std::vector<PBSPHParticle*>& particles);
 
+	//void solveDensityConstraint(const std::vector<PBSPHParticle*>& particles);
+
 	void solveCorrectPosition(const std::vector<PBSPHParticle*>& particles);
 
 	void solveForce(const std::vector<PBSPHParticle*>& particles, const float dt);

@@ -38,6 +38,19 @@ void PBSPHBoundarySolver::solveConstraintGradient(const std::vector<PBSPHParticl
 	}
 }
 
+/*
+void PBSPHBoundarySolver::solveDensityConstraint(const std::vector<PBSPHParticle*>& particles)
+{
+	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
+		if (isBoundary(particles[i])) {
+			const auto& bPos = getBoundaryPosition(particles[i]);
+			const auto v = bPos - particles[i]->getPosition();
+			particles[i]->solveDensityConstraint(v);
+		}
+	}
+}
+*/
+
 void PBSPHBoundarySolver::solveViscosity(const std::vector<PBSPHParticle*>& particles)
 {
 	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
