@@ -63,6 +63,8 @@ void PhysicsPanel::show()
 
 
 
+	float effectLength = 1.25f;
+
 	if (ImGui::Button("Add")) {
 		ImGui::OpenPopup("Add");
 	}
@@ -80,13 +82,15 @@ void PhysicsPanel::show()
 		ImGui::InputFloat("PressureCoe", &pressureCoe);
 		static float viscosityCoe = 500.0f;
 		ImGui::InputFloat("ViscosityCoe", &viscosityCoe);
-		SPHConstant* constant = new SPHConstant(density, pressureCoe, viscosityCoe, 0.0f, divideLength * 1.25);
+
+
+		SPHConstant* constant = new SPHConstant(density, pressureCoe, viscosityCoe, 0.0f, effectLength);
 		if (ImGui::Button("OK")) {
 			for (auto x = point1[0]; x < point2[0]; x += divideLength) {
 				for (auto y = point1[1]; y < point2[1]; y += divideLength) {
 					for (auto z = point1[2]; z < point2[2]; z += divideLength) {
 						const Vector3df position(x, y, z);
-						auto p = new PBSPHParticle(position, constant->getEffectLength() / 1.25f / 2.0f, constant);
+						auto p = new PBSPHParticle(position, divideLength * 0.5, constant);
 						model->getSolver()->add(p);
 					}
 				}
@@ -105,8 +109,8 @@ void PhysicsPanel::show()
 		isUnderSimulation = !isUnderSimulation;
 	}
 	if (isUnderSimulation) {
-		const float timeStep = 0.05f;
-		model->getSolver()->simulate(timeStep, 1.5f, 1.5f, 3);
+		const float timeStep = 0.01f;
+		model->getSolver()->simulate(timeStep, effectLength, effectLength, 3);
 		canvas->setViewModel(model->toViewModel());
 	}
 	ImGui::End();
