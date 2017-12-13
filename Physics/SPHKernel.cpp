@@ -67,6 +67,15 @@ Vector3df SPHKernel::getSpikyKernelGradient(const Vector3df& distanceVector)
 	return distanceVector * this->spikyKernelGradConstant * pow(effectLength - distance, 2) / distance;
 }
 
+float SPHKernel::getSpikyKernelGradientWeight(const float distance, const float effectLength)
+{
+	if (distance > effectLength) {
+		return 0.0;
+	}
+	const auto constant = 45.0f / (Math::Tolerance<float>::getPI() * pow(effectLength, 6));
+	return constant * pow(effectLength - distance, 2) / distance;
+}
+
 Vector3df SPHKernel::getSpikyKernelGradient(const Vector3df& distanceVector, const float effectLength)
 {
 	const auto distance = glm::length( distanceVector );

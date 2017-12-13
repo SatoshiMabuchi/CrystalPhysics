@@ -18,11 +18,11 @@ public:
 
 	float getCubicSpline(const float v) const;
 
-	Math::Vector3df getSpikyGradient(const Math::Vector3df& v) const;
+	float getSpikyGradient(const float v) const;
 
 private:
 	std::array<float, 200> cubicSplineCash;
-	std::array< std::array< std::array< Math::Vector3df, 200 >, 200>, 200 > spikyGrad;
+	std::array<float, 200 > spikyGrad;
 };
 	}
 }

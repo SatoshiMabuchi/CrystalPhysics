@@ -160,8 +160,9 @@ Vector3df PBSPHParticle::getPositionCorrection(const PBSPHParticle& rhs)
 {
 	const auto& distanceVector = getDiff(rhs);
 	const auto correction = getDensityConstraintCorrection(rhs);
-	//const auto weight = SPHKernelCache::getInstance()->getCubicSpline(distance / kerne
-	return 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint + correction) * kernel->getSpikyKernelGradient(distanceVector, kernel->getEffectLength());
+	const auto dist = glm::distance(position, rhs.getPosition());
+	const auto weight = distanceVector * SPHKernelCache::getInstance()->getSpikyGradient( dist / kernel->getEffectLength());
+	return 1.0f / this->constant->getDensity() * (this->densityConstraint + rhs.densityConstraint + correction) * weight;
 }
 
 void PBSPHParticle::solveDensity()
