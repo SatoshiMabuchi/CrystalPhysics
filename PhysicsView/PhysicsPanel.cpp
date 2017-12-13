@@ -112,7 +112,9 @@ void PhysicsPanel::show()
 	}
 	if (isUnderSimulation) {
 		const float timeStep = 0.01f;
-		model->getSolver()->simulate(effectLength, effectLength, 3);
+		for (int i = 0; i < 3; ++i) {
+			model->getSolver()->simulate(effectLength, effectLength, 3);
+		}
 		canvas->setViewModel(model->toViewModel());
 	}
 	ImGui::End();

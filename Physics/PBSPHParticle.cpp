@@ -223,11 +223,13 @@ Vector3df PBSPHParticle::getDiff(const PBSPHParticle& rhs) const
 float PBSPHParticle::getDensityConstraintCorrection(const PBSPHParticle& rhs) const
 {
 	const float k = 0.1f;
-	const float n = 4;
+	//const float n = 4;
 	const float dq = 0.3f * constant->getEffectLength();
-	const auto w1 = kernel->getCubicSpline(glm::length( getDiff(rhs) ));
+	const auto dist = glm::length(getDiff(rhs));
+	const auto w1 = SPHKernelCache::getInstance()->getCubicSpline(dist) / kernel->getEffectLength();
 	const auto w2 = kernel->getCubicSpline(dq);
-	return -k * std::pow(w1 / w2, n);
+	const auto ww = w1 / w2;
+	return -k * ww * ww * ww * ww;//std::pow(w1 / w2, n);
 }
 
 void PBSPHParticle::solveNormal(const PBSPHParticle& rhs)
