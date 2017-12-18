@@ -64,7 +64,7 @@ void PhysicsPanel::show()
 
 
 
-	float effectLength = 1.25f;
+	float effectLength = 1.35f;
 
 	if (ImGui::Button("Add")) {
 		ImGui::OpenPopup("Add");
@@ -95,6 +95,7 @@ void PhysicsPanel::show()
 					}
 				}
 			}
+			/*
 			for (float x = 0.0; x < 20.0; x += 1.0) {
 				for (float z = -10.0; z < 10.0; z += 1.0) {
 					auto p = new PBSPHParticle(Vector3df(x, 0.0, z), divideLength * 0.5, constant);
@@ -130,7 +131,7 @@ void PhysicsPanel::show()
 					model->getSolver()->add(p);
 				}
 			}
-
+			*/
 
 			SPHKernelCache::getInstance()->build(effectLength);
 
@@ -150,7 +151,7 @@ void PhysicsPanel::show()
 	if (isUnderSimulation) {
 		const float timeStep = 0.025f;
 		for (int i = 0; i < 1; ++i) {
-			model->getSolver()->simulate(timeStep, effectLength, effectLength, 2);
+			model->getSolver()->simulate(timeStep, effectLength, effectLength, 3);
 		}
 		canvas->setViewModel(model->toViewModel());
 	}

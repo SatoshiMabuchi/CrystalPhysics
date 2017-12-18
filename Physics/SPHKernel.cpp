@@ -112,7 +112,7 @@ float SPHKernel::getCubicSpline(const float q)
 float SPHKernel::getCubicSpline(const float distance, const float effectRadius)
 {
 	const auto q = distance * 2 / (effectRadius);
-	return getCubicSpline(q);
+	return effectLength * effectLength * effectLength * getCubicSpline(q);
 }
 
 Vector3df SPHKernel::getCubicSplineGradient(const Vector3df& distanceVector)

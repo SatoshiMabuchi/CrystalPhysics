@@ -71,14 +71,13 @@ void PBSPHParticle::solveViscosity()
 	}
 	//this->velocity += viscVelocity;
 }
+#include "SPHKernelCache.h"
 
 
 void PBSPHParticle::addSelfDensity()
 {
-	this->addDensity(kernel->getPoly6Kernel(0.0, kernel->getEffectLength()) * this->getMass());
+	this->addDensity(SPHKernelCache::getInstance()->getCubicSpline(0.0) * this->getMass());
 }
-
-#include "SPHKernelCache.h"
 
 void PBSPHParticle::addDensity(const PBSPHParticle& rhs)
 {
