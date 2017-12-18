@@ -36,8 +36,6 @@ public:
 
 	float getCubicSpline(const float distance, const float effectRadius);
 
-	Math::Vector3df getCubicSplineGradient(const Math::Vector3df& distanceVector);
-
 	Math::Vector3df getCubicSplineGradient(const Math::Vector3df& distanceVector, const float effectRadius);
 
 	float getCubicSpline(const Math::Vector3df& v, const float effectLength);

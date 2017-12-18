@@ -115,31 +115,25 @@ float SPHKernel::getCubicSpline(const float distance, const float effectRadius)
 	return effectLength * effectLength * effectLength * getCubicSpline(q);
 }
 
-Vector3df SPHKernel::getCubicSplineGradient(const Vector3df& distanceVector)
+Vector3df SPHKernel::getCubicSplineGradient(const Vector3df& distanceVector, const float effectLength)
 {
-	const auto coe = 3.0f / Tolerance<float>::getTwoPI();
 	const auto length = glm::length( distanceVector );
-	const auto lengthSquared = getLengthSquared( distanceVector );
-	if (Tolerance<float>::isZeroStrictly(length)) {
+	const auto l = 48.0f / (Tolerance<float>::getPI() * effectLength * effectLength * effectLength);
+	const auto q = length / effectLength;
+	const auto grad = distanceVector * (1.0f / (length * effectLength));
+	if (q < 0.01f) {
 		return Vector3df(0, 0, 0);
 	}
-	else if (length < 1) {
-		const auto var = -2.0f *length + 1.5f *lengthSquared;
-		return coe * var * glm::normalize( distanceVector );
+	else if (q < 0.5f) {
+		return l * q * (3.0f * q - 2.0f) * grad;
 	}
-	else if (length < 2) {
-		const auto var = -0.5f * std::pow(2.0f - length, 2.0f);
-		return coe * var * glm::normalize( distanceVector );
+	else if (q < 1.0f) {
+		const auto f = 1.0f - q;
+		return l * (-f * f) * grad;
 	}
 	else {
 		return Vector3df(0, 0, 0);
 	}
-}
-
-Vector3df SPHKernel::getCubicSplineGradient(const Vector3df& distanceVector, const float effectRadius)
-{
-	const auto scale = glm::length( distanceVector ) * 2.0f / effectRadius;
-	return getCubicSplineGradient(distanceVector * scale);
 }
 
 float SPHKernel::getCubicSpline(const Vector3df& v, const float effectLength)
