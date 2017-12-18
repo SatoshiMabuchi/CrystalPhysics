@@ -8,7 +8,8 @@ using namespace Crystal::Physics;
 
 PBSPHParticle::PBSPHParticle(const Vector3df& center, float radius, SPHConstant* constant) :
 	ISPHParticle(center, radius),
-	constant(constant)
+	constant(constant),
+	isBoundary(false)
 {
 	this->density = constant->getDensity();
 }
@@ -81,21 +82,28 @@ void PBSPHParticle::addSelfDensity()
 
 void PBSPHParticle::addDensity(const PBSPHParticle& rhs)
 {
-	const float distance = glm::distance( this->getPosition(), rhs.getPosition());
-	this->addDensity(SPHKernelCache::getInstance()->getCubicSpline(distance / kernel->getEffectLength()) * rhs.getMass());
+	const float distance = glm::distance(this->getPosition(), rhs.getPosition());
+	if (rhs.isBoundary) {
+		this->addDensity(SPHKernelCache::getInstance()->getCubicSpline(distance / kernel->getEffectLength()) * rhs.getMass());
+	}
+	else {
+		this->addDensity(SPHKernelCache::getInstance()->getCubicSpline(distance / kernel->getEffectLength()) * rhs.getMass());
+	}
 }
 
 void PBSPHParticle::addDensity(const float distance, const float mass)
 {
-	this->addDensity(kernel->getCubicSpline(distance, kernel->getEffectLength()) * mass);
+	this->addDensity(SPHKernelCache::getInstance()->getCubicSpline(distance / kernel->getEffectLength()) * mass);
 }
 
 
 void PBSPHParticle::predictPosition(const float dt)
 {
-	this->prevPosition = this->position;
-	this->velocity += dt * this->force;
-	this->position += dt * this->velocity;
+	if (!isBoundary) {
+		this->prevPosition = this->position;
+		this->velocity += dt * this->force;
+		this->position += dt * this->velocity;
+	}
 }
 
 void PBSPHParticle::solveConstrantGradient()
@@ -191,7 +199,9 @@ void PBSPHParticle::solveViscosity(const float distance)
 
 void PBSPHParticle::updatePredictPosition(const float dt)
 {
-	this->position = this->position + positionCorrection;
+	if (!isBoundary) {
+		this->position = this->position + positionCorrection;
+	}
 }
 
 void PBSPHParticle::updateVelocity(const float dt)

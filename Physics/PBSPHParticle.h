@@ -18,6 +18,8 @@ class PBSPHParticle : public ISPHParticle
 public:
 	PBSPHParticle(const Math::Vector3df& center, float radius, SPHConstant* constant);
 
+	void setBoundary() { this->isBoundary = true; }
+
 	void setKernel(SPHKernel* kernel) { this->kernel = kernel; }
 
 	virtual ~PBSPHParticle() {};
@@ -115,6 +117,8 @@ public:
 
 	Math::Vector3df getPosition() const { return position; }
 
+	SPHConstant* getConstant() { return constant; }
+
 
 private:
 	Math::Vector3df getConstraintGradient(const PBSPHParticle& rhs);
@@ -140,6 +144,7 @@ private:
 	Math::Vector3df positionCorrection;
 	Math::Vector3df viscVelocity;
 	SPHKernel* kernel;
+	bool isBoundary;
 };
 
 	}

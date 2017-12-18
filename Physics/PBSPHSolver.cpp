@@ -23,8 +23,17 @@ void PBSPHSolver::simulate(const float dt, const float effectLength, const float
 		p->init();
 	}
 
+	/*
 	PBSPHBoundarySolver boundarySolver(boundary);
-	boundarySolver.solveForce(particles, dt);
+	std::list<PBSPHParticle*> neighbors;
+	for (auto p : particles) {
+		if (boundarySolver.isBoundary(p)) {
+			auto neighbor = boundarySolver.generateBoundaryParticle(p);
+			neighbors.push_back(neighbor);
+			p->addNeighbor(neighbor);
+		}
+	}
+	*/
 
 	for (auto p : particles) {
 		p->addExternalForce(externalForce);
@@ -96,4 +105,9 @@ void PBSPHSolver::simulate(const float dt, const float effectLength, const float
 		//	p->integrate(dt);
 	}
 
+	/*
+	for (auto n : neighbors) {
+		delete n;
+	}
+	*/
 }

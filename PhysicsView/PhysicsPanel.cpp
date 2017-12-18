@@ -95,6 +95,43 @@ void PhysicsPanel::show()
 					}
 				}
 			}
+			for (float x = 0.0; x < 20.0; x += 1.0) {
+				for (float z = -10.0; z < 10.0; z += 1.0) {
+					auto p = new PBSPHParticle(Vector3df(x, 0.0, z), divideLength * 0.5, constant);
+					p->setBoundary();
+					model->getSolver()->add(p);
+				}
+			}
+			for (float y = 0.0; y < 20.0; y += 1.0) {
+				for (float z = -10.0; z < 10.0; z += 1.0) {
+					auto p = new PBSPHParticle(Vector3df(21.0, y, z), divideLength * 0.5, constant);
+					p->setBoundary();
+					model->getSolver()->add(p);
+				}
+			}
+			for (float y = 0.0; y < 20.0; y += 1.0) {
+				for (float z = -10.0; z < 10.0; z += 1.0) {
+					auto p = new PBSPHParticle(Vector3df(-1.0, y, z), divideLength * 0.5, constant);
+					p->setBoundary();
+					model->getSolver()->add(p);
+				}
+			}
+			for (float x = 0.0; x < 20.0; x += 1.0) {
+				for (float y = 0.0; y < 10.0; y += 1.0) {
+					auto p = new PBSPHParticle(Vector3df(x, y, -11.0f), divideLength * 0.5, constant);
+					p->setBoundary();
+					model->getSolver()->add(p);
+				}
+			}
+			for (float x = 0.0; x < 20.0; x += 1.0) {
+				for (float y = 0.0; y < 10.0; y += 1.0) {
+					auto p = new PBSPHParticle(Vector3df(x, y, 11.0f), divideLength * 0.5, constant);
+					p->setBoundary();
+					model->getSolver()->add(p);
+				}
+			}
+
+
 			SPHKernelCache::getInstance()->build(effectLength);
 
 			canvas->setViewModel(model->toViewModel());

@@ -13,7 +13,11 @@ class PBSPHBoundarySolver
 public:
 	PBSPHBoundarySolver() {};
 
+	//~PBSPHBoundarySolver();
+
 	PBSPHBoundarySolver(const Math::Box3d& boundary);
+
+	PBSPHParticle* generateBoundaryParticle(PBSPHParticle* particle);
 
 	void solveDensity(const std::vector<PBSPHParticle*>& particles);
 
@@ -27,8 +31,9 @@ public:
 
 	void solveViscosity(const std::vector<PBSPHParticle*>& particles);
 
-private:
 	bool isBoundary(PBSPHParticle* particle);
+
+private:
 
 	Math::Vector3df getBoundaryPosition(PBSPHParticle* particle);
 

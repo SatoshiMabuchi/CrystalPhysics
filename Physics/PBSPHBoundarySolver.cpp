@@ -15,6 +15,14 @@ PBSPHBoundarySolver::PBSPHBoundarySolver(const Box3d& boundary) :
 {
 }
 
+PBSPHParticle* PBSPHBoundarySolver::generateBoundaryParticle(PBSPHParticle* particle)
+{
+	const auto& bPos = getBoundaryPosition(particle);
+	auto p = new PBSPHParticle(bPos, particle->getRadius(), particle->getConstant());
+	p->init();
+	p->setBoundary();
+	return p;
+}
 
 void PBSPHBoundarySolver::solveDensity(const std::vector<PBSPHParticle*>& particles)
 {
