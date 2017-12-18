@@ -90,7 +90,7 @@ void PBSPHBoundarySolver::solveForce(const std::vector<PBSPHParticle*>& particle
 bool PBSPHBoundarySolver::isBoundary(PBSPHParticle* particle)
 {
 	const auto& pos = particle->getPosition();
-	const auto radii = particle->getRadius();
+	const auto radii = particle->getEffectLength();
 	if (pos.x + radii > boundary.getMaxX()) {
 		return true;
 	}
@@ -116,7 +116,7 @@ Vector3df PBSPHBoundarySolver::getBoundaryPosition(PBSPHParticle* particle)
 {
 	assert(isBoundary(particle));
 	const auto& pos = particle->getPosition();
-	const auto radii = particle->getRadius();
+	const auto radii = particle->getEffectLength();
 	if (pos.x + radii > boundary.getMaxX()) {
 		return Vector3df(boundary.getMaxX() + radii, pos.y, pos.z);
 	}

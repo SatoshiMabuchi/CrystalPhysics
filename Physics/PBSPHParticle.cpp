@@ -218,9 +218,9 @@ void PBSPHParticle::updatePosition()
 
 void PBSPHParticle::addPositionCorrection(const Vector3df& distanceVector)
 {
-	this->positionCorrection += distanceVector;
-	//const auto pc = 1.0f / this->constant->getDensity() * (this->densityConstraint + this->densityConstraint) * kernel.getSpikyKernelGradient(distanceVector, constant->getEffectLength());
-	//this->positionCorrection += pc;
+	//this->positionCorrection += distanceVector;
+	const auto pc = 1.0f / this->constant->getDensity() * (this->densityConstraint + this->densityConstraint) * kernel->getSpikyKernelGradient(distanceVector, constant->getEffectLength());
+	this->positionCorrection += pc;
 }
 
 Vector3df PBSPHParticle::getDiff(const PBSPHParticle& rhs) const

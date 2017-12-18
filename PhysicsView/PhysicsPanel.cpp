@@ -70,7 +70,7 @@ void PhysicsPanel::show()
 		ImGui::OpenPopup("Add");
 	}
 	if (ImGui::BeginPopup("Add")) {
-		static float point1[3] = { 0.0f, 1.0f, -10.0f };
+		static float point1[3] = { 0.0f, 0.0f, -10.0f };
 		ImGui::InputFloat3("Point1", point1);
 		static float point2[3] = { 20.0f, 10.0f, 10.0f };
 		ImGui::InputFloat3("Point2", point2);

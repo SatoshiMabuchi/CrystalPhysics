@@ -65,13 +65,13 @@ void PBSPHSolver::simulate(const float dt, const float effectLength, const float
 			const auto p = particles[i];
 			p->solveDensity();
 		}
-		//boundarySolver.solveDensity(particles);
+		boundarySolver.solveDensity(particles);
 #pragma omp parallel for
 		for (int i = 0; i < particles.size(); ++i) {
 			const auto p = particles[i];
 			p->solveConstrantGradient();
 		}
-		//boundarySolver.solveConstraintGradient(particles);
+		boundarySolver.solveConstraintGradient(particles);
 #pragma omp parallel for
 		for (int i = 0; i < particles.size(); ++i) {
 			const auto p = particles[i];
@@ -83,7 +83,7 @@ void PBSPHSolver::simulate(const float dt, const float effectLength, const float
 			const auto p = particles[i];
 			p->solvePositionCorrection();
 		}
-		//boundarySolver.solveCorrectPosition(particles);
+		boundarySolver.solveCorrectPosition(particles);
 		for (int i = 0; i < particles.size(); ++i) {
 			const auto p = particles[i];
 			p->updatePredictPosition(dt);
