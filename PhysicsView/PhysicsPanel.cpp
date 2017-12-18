@@ -111,9 +111,9 @@ void PhysicsPanel::show()
 		isUnderSimulation = !isUnderSimulation;
 	}
 	if (isUnderSimulation) {
-		const float timeStep = 0.025f;
+		const float timeStep = 0.10f;
 		for (int i = 0; i < 1; ++i) {
-			model->getSolver()->simulate(timeStep, effectLength, effectLength, 2);
+			model->getSolver()->simulate(timeStep, effectLength, effectLength * 1.1f, 10);
 		}
 		canvas->setViewModel(model->toViewModel());
 	}

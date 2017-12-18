@@ -178,7 +178,7 @@ Vector3df PBSPHParticle::solveViscosity(const PBSPHParticle& rhs)
 {
 	const auto& velocityDiff = (rhs.velocity - this->velocity);
 	const auto distance = glm::distance( getPosition(), rhs.getPosition());
-	const auto weight = kernel->getCubicSpline(distance, kernel->getEffectLength());
+	const auto weight = kernel->getViscosityKernelLaplacian(distance, kernel->getEffectLength());
 	return velocityDiff * weight;
 }
 
