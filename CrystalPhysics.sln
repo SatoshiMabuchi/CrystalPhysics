@@ -1,14 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysicsTest", "PhysicsTest\PhysicsTest.vcxproj", "{5B31A7AA-E2EC-4670-BF7A-D05D2B18A76A}"
-	ProjectSection(ProjectDependencies) = postProject
-		{EF054C93-201B-4807-9285-CABC9C68978A} = {EF054C93-201B-4807-9285-CABC9C68978A}
-		{266D30C3-1B54-4344-B2E2-DBF92D972957} = {266D30C3-1B54-4344-B2E2-DBF92D972957}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Physics", "Physics\Physics.vcxproj", "{266D30C3-1B54-4344-B2E2-DBF92D972957}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EF054C93-201B-4807-9285-CABC9C68978A} = {EF054C93-201B-4807-9285-CABC9C68978A}
@@ -61,14 +55,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5B31A7AA-E2EC-4670-BF7A-D05D2B18A76A}.Debug|x64.ActiveCfg = Debug|x64
-		{5B31A7AA-E2EC-4670-BF7A-D05D2B18A76A}.Debug|x64.Build.0 = Debug|x64
-		{5B31A7AA-E2EC-4670-BF7A-D05D2B18A76A}.Debug|x86.ActiveCfg = Debug|Win32
-		{5B31A7AA-E2EC-4670-BF7A-D05D2B18A76A}.Debug|x86.Build.0 = Debug|Win32
-		{5B31A7AA-E2EC-4670-BF7A-D05D2B18A76A}.Release|x64.ActiveCfg = Release|x64
-		{5B31A7AA-E2EC-4670-BF7A-D05D2B18A76A}.Release|x64.Build.0 = Release|x64
-		{5B31A7AA-E2EC-4670-BF7A-D05D2B18A76A}.Release|x86.ActiveCfg = Release|Win32
-		{5B31A7AA-E2EC-4670-BF7A-D05D2B18A76A}.Release|x86.Build.0 = Release|Win32
 		{266D30C3-1B54-4344-B2E2-DBF92D972957}.Debug|x64.ActiveCfg = Debug|x64
 		{266D30C3-1B54-4344-B2E2-DBF92D972957}.Debug|x64.Build.0 = Debug|x64
 		{266D30C3-1B54-4344-B2E2-DBF92D972957}.Debug|x86.ActiveCfg = Debug|Win32
@@ -152,5 +138,8 @@ Global
 		{FAC137D1-3997-43DD-BA2A-11EA7355AC6B} = {FFCAA3D2-3DEE-4AC0-AA81-525B7E7B7836}
 		{198160CC-5ED1-499D-AD45-90DBAC4852F8} = {FFCAA3D2-3DEE-4AC0-AA81-525B7E7B7836}
 		{EF054C93-201B-4807-9285-CABC9C68978A} = {FFCAA3D2-3DEE-4AC0-AA81-525B7E7B7836}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A9C6564B-7759-4768-92FC-97F8DBBF7A0E}
 	EndGlobalSection
 EndGlobal

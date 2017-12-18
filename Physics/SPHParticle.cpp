@@ -97,13 +97,13 @@ void SPHParticle::solveViscosityForce(const SPHParticle& rhs)
 
 void SPHParticle::addSelfDensity()
 {
-	this->addDensity(kernel.getPoly6Kernel(0.0, constant->getEffectLength()) * this->getMass());
+	this->addDensity(kernel.getCubicSpline(0.0, constant->getEffectLength()) * this->getMass());
 }
 
 void SPHParticle::addDensity(const SPHParticle& rhs)
 {
 	const float distance = glm::distance( this->getPosition(), rhs.getPosition());
-	this->addDensity(kernel.getPoly6Kernel(distance, constant->getEffectLength()) * rhs.getMass());
+	this->addDensity(kernel.getCubicSpline(distance, constant->getEffectLength()) * rhs.getMass());
 }
 
 void SPHParticle::move(const Vector3df& v)
