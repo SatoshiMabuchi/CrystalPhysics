@@ -16,11 +16,13 @@ PBSPHBoundarySolver::PBSPHBoundarySolver(const Box3d& boundary) :
 }
 
 
-void PBSPHBoundarySolver::solveForce(const std::vector<PBSPHParticle*>& particles, const float dt)
+void PBSPHBoundarySolver::addDX(const std::vector<PBSPHParticle*>& particles, const float dt)
 {
 	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
 		const auto over = getOverVector(particles[i]->getPosition());
-		particles[i]->addExternalForce(-over / dt / dt);
+		particles[i]->addDensity(glm::length(over), particles[i]->getMass());
+		particles[i]->dx -= over * 0.1f;
+		//particles[i]->addExternalForce(-over / dt / dt);
 	}
 }
 

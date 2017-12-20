@@ -14,7 +14,6 @@ void PBSPHSolver::simulate(const float dt, const float effectLength, const float
 	}
 
 	PBSPHBoundarySolver boundarySolver(boundary);
-	boundarySolver.solveForce(particles, dt);
 	for (auto p : particles) {
 		p->addExternalForce(externalForce);
 		p->predictPosition_(dt);
@@ -38,6 +37,8 @@ void PBSPHSolver::simulate(const float dt, const float effectLength, const float
 			p->setDensity(0.0f);
 			p->dx = Math::Vector3df(0,0,0);
 		}
+
+		boundarySolver.addDX(particles, dt);
 
 		for (int i = 0; i < particles.size(); ++i) {
 			const auto p = static_cast<PBSPHParticle*>(particles[i]);

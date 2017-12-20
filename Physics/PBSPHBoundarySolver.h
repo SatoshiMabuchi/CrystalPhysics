@@ -15,7 +15,7 @@ public:
 
 	PBSPHBoundarySolver(const Math::Box3d& boundary);
 
-	void solveForce(const std::vector<PBSPHParticle*>& particles, const float dt);
+	void addDX(const std::vector<PBSPHParticle*>& particles, const float dt);
 
 private:
 	bool isBoundary(PBSPHParticle* particle);

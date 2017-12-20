@@ -63,6 +63,8 @@ public:
 
 	void addDensity(const PBSPHParticle& rhs);
 
+	void addDensity(const float distance, const float mass);
+
 	void predictPosition_(const float dt);
 
 	void updatePredictPosition();

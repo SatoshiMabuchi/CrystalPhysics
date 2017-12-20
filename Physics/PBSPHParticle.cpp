@@ -66,6 +66,12 @@ void PBSPHParticle::addDensity(const PBSPHParticle& rhs)
 	this->addDensity(kernel->getPoly6Kernel(distance, kernel->getEffectLength()) * rhs.getMass());
 }
 
+void PBSPHParticle::addDensity(const float distance, const float mass)
+{
+	this->addDensity(kernel->getPoly6Kernel(distance, kernel->getEffectLength()) * mass);
+}
+
+
 void PBSPHParticle::predictPosition_(const float dt)
 {
 	this->position = this->predictPosition;
