@@ -64,7 +64,7 @@ void PhysicsPanel::show()
 
 
 
-	float effectLength = 1.25f;
+	float effectLength = 1.15f;
 
 	if (ImGui::Button("Add")) {
 		ImGui::OpenPopup("Add");
