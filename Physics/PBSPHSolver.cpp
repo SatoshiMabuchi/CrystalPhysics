@@ -61,6 +61,8 @@ void PBSPHSolver::simulate(const float dt, const float effectLength, const float
 			p2->calculatePressure(*p1);
 		}
 
+		boundarySolver.calculatePressure(particles);
+
 		for (int i = 0; i < particles.size(); ++i) {
 			const auto p = particles[i];
 			p->updatePredictPosition();

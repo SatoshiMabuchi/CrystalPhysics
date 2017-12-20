@@ -17,6 +17,8 @@ public:
 
 	void addDX(const std::vector<PBSPHParticle*>& particles, const float dt);
 
+	void calculatePressure(const std::vector<PBSPHParticle*>& particles);
+
 private:
 	bool isBoundary(PBSPHParticle* particle);
 

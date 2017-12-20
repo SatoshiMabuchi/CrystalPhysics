@@ -19,12 +19,24 @@ PBSPHBoundarySolver::PBSPHBoundarySolver(const Box3d& boundary) :
 void PBSPHBoundarySolver::addDX(const std::vector<PBSPHParticle*>& particles, const float dt)
 {
 	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		const auto over = getOverVector(particles[i]->getPosition());
+		const auto over = getOverVector(particles[i]->getPredictPosition());
 		particles[i]->addDensity(glm::length(over), particles[i]->getMass());
+		//particles[i]->calculatePressure(-over);
+		//particles[i]->dx -= over * 0.1f;
+		//particles[i]->addExternalForce(-over / dt / dt);
+	}
+}
+
+void PBSPHBoundarySolver::calculatePressure(const std::vector<PBSPHParticle*>& particles)
+{
+	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
+		const auto over = getOverVector(particles[i]->getPredictPosition());
+		//particles[i]->calculatePressure(over);
 		particles[i]->dx -= over * 0.1f;
 		//particles[i]->addExternalForce(-over / dt / dt);
 	}
 }
+
 
 bool PBSPHBoundarySolver::isBoundary(PBSPHParticle* particle)
 {

@@ -52,7 +52,7 @@ public:
 
 	void addVelocity(const Math::Vector3df& velocity) {
 		this->velocity += velocity;
-		this->velocity *= 0.99;
+		//this->velocity *= 0.99;
 	}
 
 	void forwardTime(const float timeStep);
@@ -84,6 +84,8 @@ public:
 	Math::Vector3df getPosition() const { return position; }
 
 	void calculatePressure(const PBSPHParticle& rhs);
+
+	void calculatePressure(const Math::Vector3df& v);
 
 	void calculateViscosity(const PBSPHParticle& rhs);
 
