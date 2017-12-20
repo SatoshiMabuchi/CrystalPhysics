@@ -48,6 +48,13 @@ Vector3df SPHKernel::getPoly6KernelGradient(const Vector3df& distanceVector, con
 	return distanceVector * factor;
 }
 
+float SPHKernel::getPoly6KernelGradientCoe(const float distance, const float effectLength)
+{
+	const auto poly6ConstantGradient = 945.0f / (32.0f * Tolerance<float>::getPI() * pow(effectLength, 9));
+	return poly6ConstantGradient * pow(effectLength * effectLength - distance * distance, 2);
+}
+
+
 float SPHKernel::getPoly6KernelLaplacian(const float distance, const float effectLength)
 {
 	if (distance > effectLength) {

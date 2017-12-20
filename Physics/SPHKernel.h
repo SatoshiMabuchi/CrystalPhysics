@@ -22,6 +22,8 @@ public:
 
 	Math::Vector3df getPoly6KernelGradient(const Math::Vector3df& distanceVector, const float effectLength);
 
+	float getPoly6KernelGradientCoe(const float distance, const float effectLength);
+
 	float getPoly6KernelLaplacian(const float distance, const float effectLength);
 
 	Math::Vector3df getSpikyKernelGradient(const Math::Vector3df& distanceVector);
