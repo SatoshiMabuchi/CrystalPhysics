@@ -13,6 +13,9 @@ void PBSPHSolver::simulate(const float dt, const float effectLength, const float
 		p->init();
 	}
 
+	//static int i;
+	//i++;
+	//const auto bb = Box3d( this->boundary.getMin(), this->boundary.getMax() + Vector3dd( std::sin(i * 0.1f ) * 20.0, 0.0, 0.0) );
 	PBSPHBoundarySolver boundarySolver(boundary);
 	for (auto p : particles) {
 		p->addExternalForce(externalForce);
@@ -72,6 +75,7 @@ void PBSPHSolver::simulate(const float dt, const float effectLength, const float
 	for (int i = 0; i < particles.size(); ++i) {
 		particles[i]->xvisc = Vector3df(0, 0, 0);
 	}
+	boundarySolver.calculateViscosity(particles);
 	for (int i = 0; i < pairs.size(); ++i) {
 		const auto p1 = static_cast<PBSPHParticle*>(pairs[i].getParticle1());
 		const auto p2 = static_cast<PBSPHParticle*>(pairs[i].getParticle2());

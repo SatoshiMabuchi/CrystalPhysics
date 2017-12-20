@@ -52,7 +52,7 @@ public:
 
 	void addVelocity(const Math::Vector3df& velocity) {
 		this->velocity += velocity;
-		//this->velocity *= 0.99;
+		//this->velocity *= 0.999;
 	}
 
 	void forwardTime(const float timeStep);

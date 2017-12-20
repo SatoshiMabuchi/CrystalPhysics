@@ -15,9 +15,10 @@ using namespace Crystal::Math;
 using namespace Crystal::Physics;
 using namespace Crystal::UI;
 
-PhysicsPanel::PhysicsPanel(PhysicsModel* model, ICanvas* canvas) :
+PhysicsPanel::PhysicsPanel(PhysicsModel* model, ICanvas* canvas, PhysicsRenderer* renderer) :
 	IPanel(model, canvas),
 	model(model),
+	renderer(renderer),
 	isUnderSimulation(false)
 {}
 
@@ -70,9 +71,9 @@ void PhysicsPanel::show()
 		ImGui::OpenPopup("Add");
 	}
 	if (ImGui::BeginPopup("Add")) {
-		static float point1[3] = { 0.0f, 0.0f, -10.0f };
+		static float point1[3] = { 0.0f, -0.5f, -10.0f };
 		ImGui::InputFloat3("Point1", point1);
-		static float point2[3] = { 10.0f, 10.0f, 10.0f };
+		static float point2[3] = { 20.0f, 10.0f, 10.0f };
 		ImGui::InputFloat3("Point2", point2);
 		static float divideLength = 1.0f;
 		ImGui::InputFloat("DivideLength", &divideLength);
@@ -115,10 +116,16 @@ void PhysicsPanel::show()
 		for (int i = 0; i < 1; ++i) {
 			model->getSolver()->simulate(timeStep, effectLength, effectLength * 1.0f, 3);
 		}
-		std::cout << model->getSolver()->getParticles().size() << std::endl;
-	//	std::cout << model->getSolver()->getParticles().front()->getDensity() << std::endl;
+		std::cout << model->getSolver()->getParticles().size() << ", " //<< std::endl;
+			<< model->getSolver()->getParticles().front()->getDensity() << std::endl;
 		canvas->setViewModel(model->toViewModel());
 	}
+	if (ImGui::Button("Sprite")) {
+		static bool showSprite;
+		showSprite = !showSprite;
+		renderer->setShowSprite(showSprite);
+	}
+
 	ImGui::End();
 }
 

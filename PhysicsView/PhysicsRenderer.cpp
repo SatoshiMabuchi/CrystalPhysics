@@ -173,6 +173,15 @@ void PhysicsRenderer::render(const int width, const int height)
 	frameBuffer.unbind();
 
 	glViewport(0, 0, width, height);
-	onScreenRenderer.render(fluidTexture);
+	if (_showSprite) {
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		pointRenderer.setBuffer(pointBuffer);
+		pointRenderer.render(*camera);
+	}
+	else {
+		onScreenRenderer.render(fluidTexture);
+	}
 	glFlush();
 }

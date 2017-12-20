@@ -37,6 +37,20 @@ void PBSPHBoundarySolver::calculatePressure(const std::vector<PBSPHParticle*>& p
 	}
 }
 
+void PBSPHBoundarySolver::calculateViscosity(const std::vector<PBSPHParticle*>& particles)
+{
+	/*
+	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
+		const auto over = getOverVector(particles[i]->getPredictPosition());
+		//particles[i]->calculatePressure(over);
+		const auto coe = glm::length(over) * 1.0f;
+		particles[i]->xvisc = coe * -particles[i]->getVelocity();
+		//particles[i]->addExternalForce(-over / dt / dt);
+	}
+	*/
+}
+
+
 
 bool PBSPHBoundarySolver::isBoundary(PBSPHParticle* particle)
 {

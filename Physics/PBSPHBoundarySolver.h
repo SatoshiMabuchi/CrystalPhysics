@@ -19,6 +19,8 @@ public:
 
 	void calculatePressure(const std::vector<PBSPHParticle*>& particles);
 
+	void calculateViscosity(const std::vector<PBSPHParticle*>& particles);
+
 private:
 	bool isBoundary(PBSPHParticle* particle);
 
