@@ -5,9 +5,6 @@
     <ClInclude Include="SPHKernel.h" />
     <ClInclude Include="IndexedFinder.h" />
     <ClInclude Include="IndexedParticle.h" />
-    <ClInclude Include="DFSPHSolver.h">
-      <Filter>DFSPH</Filter>
-    </ClInclude>
     <ClInclude Include="PBSPHParticle.h">
       <Filter>PBSPH</Filter>
     </ClInclude>
@@ -24,9 +21,6 @@
     <ClInclude Include="STSPHSolver.h">
       <Filter>STSPH</Filter>
     </ClInclude>
-    <ClInclude Include="DFSPHParticle.h">
-      <Filter>DFSPH</Filter>
-    </ClInclude>
     <ClInclude Include="PBSPHSolver.h">
       <Filter>PBSPH</Filter>
     </ClInclude>
@@ -42,9 +36,6 @@
     <ClCompile Include="SPHKernel.cpp" />
     <ClCompile Include="IndexedFinder.cpp" />
     <ClCompile Include="IndexedParticle.cpp" />
-    <ClCompile Include="DFSPHSolver.cpp">
-      <Filter>DFSPH</Filter>
-    </ClCompile>
     <ClCompile Include="PBSPHParticle.cpp">
       <Filter>PBSPH</Filter>
     </ClCompile>
@@ -61,9 +52,6 @@
     <ClCompile Include="STSPHSolver.cpp">
       <Filter>STSPH</Filter>
     </ClCompile>
-    <ClCompile Include="DFSPHParticle.cpp">
-      <Filter>DFSPH</Filter>
-    </ClCompile>
     <ClCompile Include="PBSPHSolver.cpp">
       <Filter>PBSPH</Filter>
     </ClCompile>
@@ -78,9 +66,6 @@
     </Filter>
     <Filter Include="STSPH">
       <UniqueIdentifier>{e8a7e62a-3455-42d0-b17d-98f54fd9a5f3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DFSPH">
-      <UniqueIdentifier>{450aecba-d1e0-4714-813f-a323cfc1d522}</UniqueIdentifier>
     </Filter>
     <Filter Include="Base">
       <UniqueIdentifier>{ddfbd6fe-33be-45cc-93bc-2fa82f730e40}</UniqueIdentifier>

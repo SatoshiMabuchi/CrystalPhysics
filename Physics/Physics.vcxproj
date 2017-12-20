@@ -20,8 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BoundarySolver.h" />
-    <ClInclude Include="DFSPHParticle.h" />
-    <ClInclude Include="DFSPHSolver.h" />
     <ClInclude Include="IndexedFinder.h" />
     <ClInclude Include="IndexedParticle.h" />
     <ClInclude Include="ISPHParticle.h" />
@@ -38,8 +36,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BoundarySolver.cpp" />
-    <ClCompile Include="DFSPHParticle.cpp" />
-    <ClCompile Include="DFSPHSolver.cpp" />
     <ClCompile Include="IndexedFinder.cpp" />
     <ClCompile Include="IndexedParticle.cpp" />
     <ClCompile Include="ISPHSolver.cpp" />
