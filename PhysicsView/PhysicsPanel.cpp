@@ -72,7 +72,7 @@ void PhysicsPanel::show()
 	if (ImGui::BeginPopup("Add")) {
 		static float point1[3] = { 0.0f, 1.0f, -10.0f };
 		ImGui::InputFloat3("Point1", point1);
-		static float point2[3] = { 20.0f, 10.0f, 10.0f };
+		static float point2[3] = { 10.0f, 10.0f, 10.0f };
 		ImGui::InputFloat3("Point2", point2);
 		static float divideLength = 1.0f;
 		ImGui::InputFloat("DivideLength", &divideLength);
@@ -111,10 +111,11 @@ void PhysicsPanel::show()
 		isUnderSimulation = !isUnderSimulation;
 	}
 	if (isUnderSimulation) {
-		const float timeStep = 0.10f;
+		const float timeStep = 0.2f;
 		for (int i = 0; i < 1; ++i) {
 			model->getSolver()->simulate(timeStep, effectLength, effectLength * 1.1f, 10);
 		}
+		std::cout << model->getSolver()->getParticles().front()->getDensity() << std::endl;
 		canvas->setViewModel(model->toViewModel());
 	}
 	ImGui::End();

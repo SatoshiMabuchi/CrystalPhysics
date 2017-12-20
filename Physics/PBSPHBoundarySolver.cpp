@@ -16,61 +16,6 @@ PBSPHBoundarySolver::PBSPHBoundarySolver(const Box3d& boundary) :
 }
 
 
-void PBSPHBoundarySolver::solveDensity(const std::vector<PBSPHParticle*>& particles)
-{
-	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		if (isBoundary(particles[i])) {
-			const auto& bPos = getBoundaryPosition(particles[i]);
-			const auto dist = glm::distance( particles[i]->getPosition(), bPos);
-			particles[i]->addDensity(dist, particles[i]->getMass());
-		}
-	}
-}
-
-void PBSPHBoundarySolver::solveConstraintGradient(const std::vector<PBSPHParticle*>& particles)
-{
-	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		if (isBoundary(particles[i])) {
-			const auto& bPos = getBoundaryPosition(particles[i]);
-			const auto v = bPos - particles[i]->getPosition();
-			particles[i]->addConstrantGradient(v);
-		}
-	}
-}
-
-/*
-void PBSPHBoundarySolver::solveDensityConstraint(const std::vector<PBSPHParticle*>& particles)
-{
-	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		if (isBoundary(particles[i])) {
-			const auto& bPos = getBoundaryPosition(particles[i]);
-			const auto v = bPos - particles[i]->getPosition();
-			particles[i]->solveDensityConstraint(v);
-		}
-	}
-}
-*/
-
-void PBSPHBoundarySolver::solveViscosity(const std::vector<PBSPHParticle*>& particles)
-{
-	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		const auto v = getOverVector(particles[i]->getPosition());
-		particles[i]->solveViscosity(glm::length( v ));
-	}
-}
-
-
-void PBSPHBoundarySolver::solveCorrectPosition(const std::vector<PBSPHParticle*>& particles)
-{
-	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		if (isBoundary(particles[i])) {
-			const auto& bPos = getBoundaryPosition(particles[i]);
-			const auto v = bPos - particles[i]->getPosition();
-			particles[i]->addPositionCorrection(v);
-		}
-	}
-}
-
 void PBSPHBoundarySolver::solveForce(const std::vector<PBSPHParticle*>& particles, const float dt)
 {
 	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {

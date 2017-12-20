@@ -39,7 +39,7 @@ float SPHKernel::getPoly6Kernel(const float distance, const float effectLength)
 
 Vector3df SPHKernel::getPoly6KernelGradient(const Vector3df& distanceVector, const float effectLength)
 {
-	const auto distance = distanceVector.length();
+	const auto distance = glm::length(distanceVector);
 	if (distance > effectLength) {
 		return Vector3df(0, 0, 0);
 	}
