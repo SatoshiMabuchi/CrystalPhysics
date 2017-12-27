@@ -18,19 +18,9 @@ class PBSPHParticle : public ISPHParticle
 public:
 	PBSPHParticle(const Math::Vector3df& center, float radius, SPHConstant* constant);
 
-	void setBoundary() { this->isBoundary = true; }
-
 	void setKernel(SPHKernel* kernel) { this->kernel = kernel; }
 
 	virtual ~PBSPHParticle() {};
-
-	void clearNeighbors() { neighbors.clear(); }
-
-	void addNeighbor(PBSPHParticle* n) { neighbors.push_back(n); }
-
-	//void setNeighbors(const std::list<PBSPHParticle*>& neighbors);
-
-	std::vector<PBSPHParticle*> getNeighbors() const { return neighbors; }
 
 	float getDensityRatio() const;
 
@@ -60,17 +50,14 @@ public:
 
 	void setVelocity(const Math::Vector3df& velocity) { this->velocity = velocity; }
 
-	void addVelocity(const Math::Vector3df& velocity) { this->velocity += velocity; }
+	void addVelocity(const Math::Vector3df& velocity) {
+		this->velocity += velocity;
+		//this->velocity *= 0.999;
+	}
 
 	void forwardTime(const float timeStep);
 
 	void addExternalForce(const Math::Vector3df& force);
-
-	void solveNormal(const PBSPHParticle& rhs);
-
-	void solveSurfaceTension(const PBSPHParticle& rhs);
-
-	void solvePressureForce(const PBSPHParticle& rhs);
 
 	void addSelfDensity();
 
@@ -78,73 +65,48 @@ public:
 
 	void addDensity(const float distance, const float mass);
 
-	void setNormal(const Math::Vector3df& n) { this->normal = n; }
+	void predictPosition_(const float dt);
 
-	Math::Vector3df getNormal() const { return normal; }
-
-	void predictPosition(const float dt);
-
-	void solveConstrantGradient();
-
-	void solveConstrantGradient(const PBSPHParticle& rhs);
-
-	Math::Vector3df solveBoundaryDensityConstraint(const Math::Vector3df& pos);
-
-	void solveDensityConstraint();
-
-	void solveDensity();
-
-	void updatePredictPosition(const float dt);
+	void updatePredictPosition();
 
 	void updateVelocity(const float dt);
 
 	void updatePosition();
 
-	void solvePositionCorrection();
-
-	//void addPositionCorrection(const Math::Vector3d<float>& pc) { this->positionCorrection += pc; }
 	void addPositionCorrection(const Math::Vector3df& pc);
-
-	void addConstrantGradient(const Math::Vector3df& distance);
-
-	void solveViscosity();
 
 	void solveViscosity(const float distance);
 
-	void updateViscosity() { this->velocity += this->viscVelocity; }
-
 	float getEffectLength() const { return constant->getEffectLength(); }
+
+	Math::Vector3df getPredictPosition() const { return predictPosition; }
 
 	Math::Vector3df getPosition() const { return position; }
 
-	SPHConstant* getConstant() { return constant; }
+	void calculatePressure(const PBSPHParticle& rhs);
+
+	void calculatePressure(const Math::Vector3df& v);
+
+	void calculateViscosity(const PBSPHParticle& rhs);
+
+	float getConstraint() const;
+
+	Math::Vector3df dx;
+	Math::Vector3df xvisc;
+
+	void setDensity(const float d) { this->density = d; }
 
 
 private:
-	Math::Vector3df getConstraintGradient(const PBSPHParticle& rhs);
-
-	Math::Vector3df getPositionCorrection(const PBSPHParticle& rhs);
-
 	Math::Vector3df getDiff(const PBSPHParticle& rhs) const;
 
-	Math::Vector3df solveViscosity(const PBSPHParticle& rhs);
-
-	float getDensityConstraintCorrection(const PBSPHParticle& rhs) const;
-
-	float densityConstraint;
-
-	std::vector<PBSPHParticle*> neighbors;
+	Math::Vector3df predictPosition;
 	Math::Vector3df force;
 	Math::Vector3df velocity;
 	Math::Vector3df normal;
-	Math::Vector3df prevPosition;
-	Math::Vector3df constraintGrad;
 
 	SPHConstant* constant;
-	Math::Vector3df positionCorrection;
-	Math::Vector3df viscVelocity;
 	SPHKernel* kernel;
-	bool isBoundary;
 };
 
 	}

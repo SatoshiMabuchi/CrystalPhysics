@@ -15,77 +15,41 @@ PBSPHBoundarySolver::PBSPHBoundarySolver(const Box3d& boundary) :
 {
 }
 
-PBSPHParticle* PBSPHBoundarySolver::generateBoundaryParticle(PBSPHParticle* particle)
-{
-	const auto& bPos = getBoundaryPosition(particle);
-	auto p = new PBSPHParticle(bPos, particle->getRadius(), particle->getConstant());
-	p->init();
-	p->setBoundary();
-	return p;
-}
-
-void PBSPHBoundarySolver::solveDensity(const std::vector<PBSPHParticle*>& particles)
+void PBSPHBoundarySolver::addDX(const std::vector<PBSPHParticle*>& particles, const float dt)
 {
 	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		if (isBoundary(particles[i])) {
-			const auto& bPos = getBoundaryPosition(particles[i]);
-			const auto dist = glm::distance( particles[i]->getPosition(), bPos);
-			particles[i]->addDensity(dist, particles[i]->getMass());
-		}
+		const auto over = getOverVector(particles[i]->getPredictPosition());
+		particles[i]->addDensity(glm::length(over), particles[i]->getMass());
+		//particles[i]->calculatePressure(-over);
+		//particles[i]->dx -= over * 0.1f;
+		//particles[i]->addExternalForce(-over / dt / dt);
 	}
 }
 
-void PBSPHBoundarySolver::solveConstraintGradient(const std::vector<PBSPHParticle*>& particles)
+void PBSPHBoundarySolver::calculatePressure(const std::vector<PBSPHParticle*>& particles)
 {
 	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		if (isBoundary(particles[i])) {
-			const auto& bPos = getBoundaryPosition(particles[i]);
-			const auto v = bPos - particles[i]->getPosition();
-			particles[i]->addConstrantGradient(v);
-		}
+		const auto over = getOverVector(particles[i]->getPredictPosition());
+		//particles[i]->calculatePressure(over);
+		particles[i]->dx -= over * 0.1f;
+		//particles[i]->addExternalForce(-over / dt / dt);
 	}
 }
 
-/*
-void PBSPHBoundarySolver::solveDensityConstraint(const std::vector<PBSPHParticle*>& particles)
+void PBSPHBoundarySolver::calculateViscosity(const std::vector<PBSPHParticle*>& particles)
 {
+	/*
 	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		if (isBoundary(particles[i])) {
-			const auto& bPos = getBoundaryPosition(particles[i]);
-			const auto v = bPos - particles[i]->getPosition();
-			particles[i]->solveDensityConstraint(v);
-		}
+		const auto over = getOverVector(particles[i]->getPredictPosition());
+		//particles[i]->calculatePressure(over);
+		const auto coe = glm::length(over) * 1.0f;
+		particles[i]->xvisc = coe * -particles[i]->getVelocity();
+		//particles[i]->addExternalForce(-over / dt / dt);
 	}
-}
-*/
-
-void PBSPHBoundarySolver::solveViscosity(const std::vector<PBSPHParticle*>& particles)
-{
-	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		const auto v = getOverVector(particles[i]->getPosition());
-		particles[i]->solveViscosity(glm::length( v ));
-	}
+	*/
 }
 
 
-void PBSPHBoundarySolver::solveCorrectPosition(const std::vector<PBSPHParticle*>& particles)
-{
-	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		if (isBoundary(particles[i])) {
-			const auto& bPos = getBoundaryPosition(particles[i]);
-			const auto v = bPos - particles[i]->getPosition();
-			particles[i]->addPositionCorrection(v);
-		}
-	}
-}
-
-void PBSPHBoundarySolver::solveForce(const std::vector<PBSPHParticle*>& particles, const float dt)
-{
-	for (int i = 0; i < static_cast<int>(particles.size()); ++i) {
-		const auto over = getOverVector(particles[i]->getPosition());
-		particles[i]->addExternalForce(-over / dt / dt);
-	}
-}
 
 bool PBSPHBoundarySolver::isBoundary(PBSPHParticle* particle)
 {

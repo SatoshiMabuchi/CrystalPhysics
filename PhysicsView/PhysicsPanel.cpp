@@ -15,9 +15,10 @@ using namespace Crystal::Math;
 using namespace Crystal::Physics;
 using namespace Crystal::UI;
 
-PhysicsPanel::PhysicsPanel(PhysicsModel* model, ICanvas* canvas) :
+PhysicsPanel::PhysicsPanel(PhysicsModel* model, ICanvas* canvas, PhysicsRenderer* renderer) :
 	IPanel(model, canvas),
 	model(model),
+	renderer(renderer),
 	isUnderSimulation(false)
 {}
 
@@ -64,13 +65,13 @@ void PhysicsPanel::show()
 
 
 
-	float effectLength = 1.35f;
+	float effectLength = 1.15f;
 
 	if (ImGui::Button("Add")) {
 		ImGui::OpenPopup("Add");
 	}
 	if (ImGui::BeginPopup("Add")) {
-		static float point1[3] = { 0.0f, 0.0f, -10.0f };
+		static float point1[3] = { 0.0f, -0.5f, -10.0f };
 		ImGui::InputFloat3("Point1", point1);
 		static float point2[3] = { 20.0f, 10.0f, 10.0f };
 		ImGui::InputFloat3("Point2", point2);
@@ -95,44 +96,6 @@ void PhysicsPanel::show()
 					}
 				}
 			}
-			/*
-			for (float x = 0.0; x < 20.0; x += 1.0) {
-				for (float z = -10.0; z < 10.0; z += 1.0) {
-					auto p = new PBSPHParticle(Vector3df(x, 0.0, z), divideLength * 0.5, constant);
-					p->setBoundary();
-					model->getSolver()->add(p);
-				}
-			}
-			for (float y = 0.0; y < 20.0; y += 1.0) {
-				for (float z = -10.0; z < 10.0; z += 1.0) {
-					auto p = new PBSPHParticle(Vector3df(21.0, y, z), divideLength * 0.5, constant);
-					p->setBoundary();
-					model->getSolver()->add(p);
-				}
-			}
-			for (float y = 0.0; y < 20.0; y += 1.0) {
-				for (float z = -10.0; z < 10.0; z += 1.0) {
-					auto p = new PBSPHParticle(Vector3df(-1.0, y, z), divideLength * 0.5, constant);
-					p->setBoundary();
-					model->getSolver()->add(p);
-				}
-			}
-			for (float x = 0.0; x < 20.0; x += 1.0) {
-				for (float y = 0.0; y < 10.0; y += 1.0) {
-					auto p = new PBSPHParticle(Vector3df(x, y, -11.0f), divideLength * 0.5, constant);
-					p->setBoundary();
-					model->getSolver()->add(p);
-				}
-			}
-			for (float x = 0.0; x < 20.0; x += 1.0) {
-				for (float y = 0.0; y < 10.0; y += 1.0) {
-					auto p = new PBSPHParticle(Vector3df(x, y, 11.0f), divideLength * 0.5, constant);
-					p->setBoundary();
-					model->getSolver()->add(p);
-				}
-			}
-			*/
-
 			SPHKernelCache::getInstance()->build(effectLength);
 
 			canvas->setViewModel(model->toViewModel());
@@ -149,12 +112,20 @@ void PhysicsPanel::show()
 		isUnderSimulation = !isUnderSimulation;
 	}
 	if (isUnderSimulation) {
-		const float timeStep = 0.025f;
+		const float timeStep = 0.20f;
 		for (int i = 0; i < 1; ++i) {
-			model->getSolver()->simulate(timeStep, effectLength, effectLength, 3);
+			model->getSolver()->simulate(timeStep, effectLength, effectLength * 1.0f, 3);
 		}
+		std::cout << model->getSolver()->getParticles().size() << ", " //<< std::endl;
+			<< model->getSolver()->getParticles().front()->getDensity() << std::endl;
 		canvas->setViewModel(model->toViewModel());
 	}
+	if (ImGui::Button("Sprite")) {
+		static bool showSprite;
+		showSprite = !showSprite;
+		renderer->setShowSprite(showSprite);
+	}
+
 	ImGui::End();
 }
 

@@ -20,7 +20,13 @@ public:
 
 	float getSpikyGradient(const float v) const;
 
+	float getPoly6(const float v) const;
+
+	float getPoly6GradCoe(const float v) const;
+
 private:
+	std::array<float, 200> poly6;
+	std::array<float, 200> poly6GradCoe;
 	std::array<float, 200> cubicSplineCash;
 	std::array<float, 200 > spikyGrad;
 };

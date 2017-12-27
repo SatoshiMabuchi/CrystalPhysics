@@ -25,7 +25,9 @@ class PhysicsRenderer : public IRenderer
 public:
 	explicit PhysicsRenderer(Graphics::ICamera* camera) :
 		camera(camera)
-	{}
+	{
+		_showSprite = true;
+	}
 
 	bool build();
 
@@ -37,7 +39,10 @@ public:
 
 	void render(const int width, const int height) override;
 
+	void setShowSprite(const bool b) { this->_showSprite = b; }
+
 private:
+	bool _showSprite;
 	Graphics::PointBuffer pointBuffer;
 	Shader::PointRenderer pointRenderer;
 	Shader::ParticleDepthRenderer depthRenderer;

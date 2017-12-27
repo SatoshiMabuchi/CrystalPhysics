@@ -39,7 +39,7 @@ int main(int, char**)
 
 	window.add(new FileMenu(&model, &canvas));
 	window.add(new CameraMenu(&model, &canvas));
-	window.add(new PhysicsPanel(&model, &canvas));
+	window.add(new PhysicsPanel(&model, &canvas, renderer));
 
 	window.show();
 
